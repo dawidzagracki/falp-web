@@ -51,14 +51,19 @@ docker exec -w /etc/caddy <caddy-container> caddy reload --config /etc/caddy/Cad
 
 ---
 
-## Krok 2B — TRYB B (najprościej, HTTP na porcie)
+## Krok 2B — TRYB B (najprościej, HTTP na porcie 80)
+
+Port 80 jest już otwarty w ufw i — w przeciwieństwie do 8080 — nie podlega
+filtrowaniu OVH (port 8080 dawał nginx 408 / niekompletne żądania).
+Wymaga, by port 80 był wolny (bez działającego Caddy/innego proxy).
 
 ```bash
-sudo ufw allow 8080
 docker compose -f deploy/docker-compose.standalone.yml up -d --build
 ```
 
-➡️ Strona: **http://213.186.33.5:8080**
+➡️ Strona: **http://213.186.33.5**
+
+Jeśli „port is already allocated" → na 80 stoi już proxy → użyj Trybu A.
 
 ---
 
