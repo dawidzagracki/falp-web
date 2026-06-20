@@ -1,0 +1,16 @@
+# Dodaj ten blok do Caddyfile wspólnego proxy (ten sam, co obsługuje EventPulse),
+# a następnie przeładuj Caddy. Kontener falp-web musi być w sieci 'edge'.
+#
+# Bez własnej domeny: sslip.io zamienia IP w nazwę DNS -> Caddy automatycznie
+# wystawi darmowy certyfikat TLS (Let's Encrypt). 213.186.33.5 = IP Twojego VPS.
+
+falp.213.186.33.5.sslip.io {
+    encode zstd gzip
+    reverse_proxy falp-web:80
+}
+
+# --- Gdy będziesz mieć prawdziwą domenę, zamień powyższy blok na np.: ---
+# falp.twojadomena.pl, www.falp.twojadomena.pl {
+#     encode zstd gzip
+#     reverse_proxy falp-web:80
+# }

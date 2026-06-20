@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper text-ink-900 font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 12% 6%, rgba(125,209,63,0.10), transparent 45%),
+      radial-gradient(circle at 88% 50%, rgba(125,209,63,0.07), transparent 50%),
+      radial-gradient(circle at 45% 100%, rgba(125,209,63,0.06), transparent 55%);
+    background-attachment: fixed;
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+  /* Subtelny grain — delikatniejszy na jasnym tle */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.018;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, h4 { @apply font-display tracking-tight; letter-spacing: -0.02em; }
+  *:focus-visible { @apply outline-none ring-2 ring-brand ring-offset-2 ring-offset-paper rounded-md; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+  @supports (padding: env(safe-area-inset-bottom)) {
+    .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full;
+    max-width: min(1280px, 100%);
+    padding-inline: clamp(1rem, 4vw, 3rem);
+  }
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3.5 sm:px-6 font-semibold text-ink-900 shadow-glow-brand transition-all duration-300 hover:bg-brand-light hover:shadow-glow-brand-lg hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0;
+    min-height: 48px;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-ink-900/15 bg-white px-5 py-3.5 sm:px-6 font-semibold text-ink-900 shadow-soft transition-all duration-300 hover:border-brand/60 hover:shadow-soft-lg hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0;
+    min-height: 48px;
+  }
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand/40 bg-brand/10 px-3.5 py-1.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.15em] text-brand-text;
+  }
+  .chip::before {
+    content: '';
+    @apply h-1.5 w-1.5 rounded-full bg-brand;
+    box-shadow: 0 0 10px rgba(125,209,63,0.8);
+  }
+  .card {
+    @apply relative rounded-2xl border border-ink-900/[0.07] bg-white shadow-soft transition-all duration-500;
+  }
+  .card-hover {
+    @apply hover:border-brand/40 hover:shadow-card-hover hover:-translate-y-1;
+  }
+  .grad-text {
+    background: linear-gradient(135deg, #7DD13F 0%, #5BA82A 55%, #46901F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow-ring {
+    position: relative;
+  }
+  .glow-ring::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(125,209,63,0.7), transparent 50%, rgba(125,209,63,0.35));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(15,27,10,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,27,10,0.045) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, transparent 70%);
+  }
+  /* Code-style label (DNA monstermedia) */
+  .section-label {
+    @apply inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-[0.25em] text-brand-text;
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+}
+
+::selection { background: rgba(125,209,63,0.35); color: #0F1B0A; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #EDF2E6; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #9CE65A, #5BA82A); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #7DD13F, #46901F); }

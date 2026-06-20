@@ -1,0 +1,12 @@
+{
+  "name": "FALP Event",
+  "short_name": "FALP",
+  "description": "Agencja eventowa — tworzymy niezapomniane wydarzenia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A1606",
+  "theme_color": "#0A1606",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

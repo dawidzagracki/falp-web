@@ -1,0 +1,27 @@
+# TRYB A — produkcyjny: za wspólnym reverse proxy Caddy (HTTPS, multi-app).
+# Kontener NIE publikuje portów — ruch wchodzi przez Caddy w sieci 'edge'.
+# Uruchomienie na serwerze (z katalogu projektu):
+#   docker compose -f deploy/docker-compose.prod.yml up -d --build
+# Potem dodaj blok z deploy/Caddyfile.falp.snippet do wspólnego Caddyfile i przeładuj Caddy.
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: falp-web:latest
+    container_name: falp-web
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - edge
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+networks:
+  edge:
+    external: true
