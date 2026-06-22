@@ -22,7 +22,7 @@ export default function Logo({ withWordmark = true, to = '/', className = '' }) 
           className="h-10 w-10 sm:h-11 sm:w-11 rounded-xl"
           draggable={false}
         />
-        <span className="absolute inset-0 rounded-xl bg-brand blur-xl opacity-30 -z-10 animate-glow-pulse" aria-hidden />
+        <span className="absolute inset-0 rounded-xl bg-brand blur-lg opacity-25 -z-10 hidden lg:block" aria-hidden />
       </span>
       {withWordmark && (
         <span className="text-base sm:text-lg font-extrabold tracking-tight text-ink-900">

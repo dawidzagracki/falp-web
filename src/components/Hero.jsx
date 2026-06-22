@@ -10,9 +10,14 @@ export default function Hero() {
   const ref = useRef(null)
   // Cząstki montujemy po pierwszym renderze (hero wstaje natychmiast)
   const [ready, setReady] = useState(false)
+  const [desktop, setDesktop] = useState(false)
   useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    setDesktop(mq.matches)
+    const onMq = () => setDesktop(mq.matches)
+    mq.addEventListener('change', onMq)
     const id = requestAnimationFrame(() => requestAnimationFrame(() => setReady(true)))
-    return () => cancelAnimationFrame(id)
+    return () => { mq.removeEventListener('change', onMq); cancelAnimationFrame(id) }
   }, [])
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
@@ -24,12 +29,12 @@ export default function Hero() {
     <section ref={ref} className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
       {/* Interaktywne tło — sieć cząstek (montowana po pierwszym renderze) */}
       <motion.div style={{ y: yParticles, scale }} className="absolute inset-0 -z-10">
-        {ready
+        {ready && desktop
           ? <ParticleField className="h-full w-full" />
           : <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(125,209,63,0.12),transparent_70%)]" />}
       </motion.div>
       <div className="absolute inset-0 -z-10">
-        <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand/15 blur-[120px] animate-glow-pulse" />
+        <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand/15 blur-[120px]" />
         <div className="absolute top-1/3 -right-40 h-[420px] w-[420px] rounded-full bg-brand/12 blur-[120px]" />
       </div>
 
