@@ -103,6 +103,8 @@
 @layer utilities {
   .text-balance { text-wrap: balance; }
   .text-pretty { text-wrap: pretty; }
+  /* Sekcje poza ekranem nie renderują się przy pierwszym malowaniu (szybsze wczytanie) */
+  .cv-section { content-visibility: auto; contain-intrinsic-size: 1px 720px; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 }

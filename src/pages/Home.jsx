@@ -30,16 +30,16 @@ export default function Home() {
       <SEO schema={schema} />
       <Hero />
       <Stats />
-      <Values />
-      <Services />
-      <Gallery />
-      <ScrollMarquee />
-      <SocialFeed />
-      <Process />
-      <Testimonials />
-      <Clients />
-      <FAQ />
-      <CTA />
+      <div className="cv-section"><Values /></div>
+      <div className="cv-section"><Services /></div>
+      <div className="cv-section"><Gallery /></div>
+      <div className="cv-section"><ScrollMarquee /></div>
+      <div className="cv-section"><SocialFeed /></div>
+      <div className="cv-section"><Process /></div>
+      <div className="cv-section"><Testimonials /></div>
+      <div className="cv-section"><Clients /></div>
+      <div className="cv-section"><FAQ /></div>
+      <div className="cv-section"><CTA /></div>
     </>
   )
 }

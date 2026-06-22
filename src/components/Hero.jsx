@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Play, ArrowRight, Sparkles } from 'lucide-react'
 import ParticleField from './ParticleField.jsx'
 import HeroStage from './HeroStage.jsx'
@@ -8,17 +8,25 @@ import HeroMarquee from './HeroMarquee.jsx'
 
 export default function Hero() {
   const ref = useRef(null)
+  // Cząstki montujemy po pierwszym renderze (hero wstaje natychmiast)
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setReady(true)))
+    return () => cancelAnimationFrame(id)
+  }, [])
+
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const yContent = useTransform(scrollYProgress, [0, 1], [0, 80])
   const yParticles = useTransform(scrollYProgress, [0, 1], [0, 160])
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0])
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
 
   return (
     <section ref={ref} className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-      {/* Interaktywne tło — sieć cząstek (zoptymalizowana, działa też na mobile) */}
+      {/* Interaktywne tło — sieć cząstek (montowana po pierwszym renderze) */}
       <motion.div style={{ y: yParticles, scale }} className="absolute inset-0 -z-10">
-        <ParticleField className="h-full w-full" />
+        {ready
+          ? <ParticleField className="h-full w-full" />
+          : <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(125,209,63,0.12),transparent_70%)]" />}
       </motion.div>
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand/15 blur-[120px] animate-glow-pulse" />
@@ -28,7 +36,7 @@ export default function Hero() {
       {/* Wielkie napisy w tle — nad siecią kropek, pod treścią */}
       <HeroMarquee />
 
-      <motion.div style={{ y: yContent, opacity }} className="container-x grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center relative">
+      <motion.div style={{ y: yContent }} className="container-x grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16 items-center relative">
         <div className="relative isolate">
           {/* mleczny woal — oddziela tekst od napisów w tle */}
           <div

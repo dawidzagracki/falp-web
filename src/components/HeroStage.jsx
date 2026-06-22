@@ -8,7 +8,8 @@ import { Radio } from 'lucide-react'
  * - rAF zapisuje style bezpośrednio do DOM (bez re-renderów)
  */
 
-const BAR_COUNT = 28
+const IS_MOBILE = typeof window !== 'undefined' && window.matchMedia('(max-width: 639px)').matches
+const BAR_COUNT = IS_MOBILE ? 16 : 28 // mniej słupków na telefonie
 const arch = (i) => Math.sin((i / (BAR_COUNT - 1)) * Math.PI) // niżej po bokach, wyżej w środku
 
 export default function HeroStage() {
@@ -43,7 +44,12 @@ export default function HeroStage() {
     const start = performance.now()
     let raf = null
     let running = false
-    const loop = () => {
+    let lastFrame = 0
+    const minDelta = IS_MOBILE ? 34 : 0 // ~30 fps na mobile = mniej pracy
+    const loop = (ts) => {
+      if (running) raf = requestAnimationFrame(loop)
+      if (ts - lastFrame < minDelta) return
+      lastFrame = ts
       const t = (performance.now() - start) / 1000
       // rytm — krótki, „uderzający" puls ~1.9 Hz
       const pulse = Math.pow(Math.sin(t * Math.PI * 2 * 1.9) * 0.5 + 0.5, 3)
@@ -66,8 +72,6 @@ export default function HeroStage() {
       const ro = (pulse * 0.5 + e * 0.3)
       if (ringL.current) { ringL.current.style.transform = `scale(${rs})`; ringL.current.style.opacity = ro }
       if (ringR.current) { ringR.current.style.transform = `scale(${rs})`; ringR.current.style.opacity = ro }
-
-      if (running) raf = requestAnimationFrame(loop)
     }
 
     // uruchamiaj pętlę tylko gdy scena jest widoczna (oszczędza CPU/baterię na mobile)
