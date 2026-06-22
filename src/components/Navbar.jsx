@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import Logo from './Logo.jsx'
 
@@ -75,49 +75,45 @@ export default function Navbar() {
         </div>
       </header>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="lg:hidden fixed inset-0 z-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
+      {open && (
+        <div className="lg:hidden fixed inset-0 z-40">
+          {/* tło — pełne i NATYCHMIASTOWE (od razu widać, że menu zadziałało) */}
+          <div className="absolute inset-0 bg-paper" onClick={() => setOpen(false)} />
+          <motion.nav
+            className="relative h-full flex flex-col justify-center container-x pt-20 pb-12 safe-bottom overflow-y-auto"
+            aria-label="Menu mobilne"
+            initial="hidden"
+            animate="show"
+            variants={{ show: { transition: { staggerChildren: 0.035 } } }}
           >
-            <div className="absolute inset-0 bg-paper" onClick={() => setOpen(false)} />
-            <motion.nav
-              className="relative h-full flex flex-col justify-center container-x pt-20 pb-12 safe-bottom overflow-y-auto"
-              aria-label="Menu mobilne"
-              initial="hidden"
-              animate="show"
-              variants={{ show: { transition: { staggerChildren: 0.06, delayChildren: 0.04 } } }}
-            >
-              <div className="flex flex-col gap-1">
-                {links.map((l) => (
-                  <motion.div key={l.to} variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0 } }}>
-                    <NavLink
-                      to={l.to}
-                      end={l.end}
-                      className={({ isActive }) =>
-                        `block rounded-2xl px-5 py-4 text-2xl font-bold font-display transition-colors ${
-                          isActive ? 'bg-brand/12 text-brand-text border border-brand/30' : 'text-ink-800 hover:bg-cream'
-                        }`
-                      }
-                    >
-                      {l.label}
-                    </NavLink>
-                  </motion.div>
-                ))}
-              </div>
-              <motion.div variants={{ hidden: { opacity: 0, x: -16 }, show: { opacity: 1, x: 0 } }}>
-                <Link to="/kontakt" className="btn-primary mt-6 text-base w-full">
-                  Bezpłatna wycena <ArrowRight size={18} />
-                </Link>
-              </motion.div>
-            </motion.nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="flex flex-col gap-1">
+              {links.map((l) => (
+                <motion.div
+                  key={l.to}
+                  variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0, transition: { duration: 0.16 } } }}
+                >
+                  <NavLink
+                    to={l.to}
+                    end={l.end}
+                    className={({ isActive }) =>
+                      `block rounded-2xl px-5 py-4 text-2xl font-bold font-display transition-colors ${
+                        isActive ? 'bg-brand/12 text-brand-text border border-brand/30' : 'text-ink-800 hover:bg-cream'
+                      }`
+                    }
+                  >
+                    {l.label}
+                  </NavLink>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div variants={{ hidden: { opacity: 0, x: -12 }, show: { opacity: 1, x: 0, transition: { duration: 0.16 } } }}>
+              <Link to="/kontakt" className="btn-primary mt-6 text-base w-full">
+                Bezpłatna wycena <ArrowRight size={18} />
+              </Link>
+            </motion.div>
+          </motion.nav>
+        </div>
+      )}
     </>
   )
 }
