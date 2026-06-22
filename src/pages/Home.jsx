@@ -1,18 +1,18 @@
+import { lazy, Suspense, useEffect } from 'react'
 import SEO from '../components/SEO.jsx'
 import Hero from '../components/Hero.jsx'
 import Stats from '../components/Stats.jsx'
-import Values from '../components/Values.jsx'
-import Services from '../components/Services.jsx'
-import Gallery from '../components/Gallery.jsx'
-import ScrollMarquee from '../components/ScrollMarquee.jsx'
-import SocialFeed from '../components/SocialFeed.jsx'
-import Process from '../components/Process.jsx'
-import Testimonials from '../components/Testimonials.jsx'
-import Clients from '../components/Clients.jsx'
-import FAQ from '../components/FAQ.jsx'
-import CTA from '../components/CTA.jsx'
+
+// Reszta strony (z framer-motion) w osobnym chunku — nie obciąża pierwszego wczytania
+const HomeBelowFold = lazy(() => import('../components/HomeBelowFold.jsx'))
 
 export default function Home() {
+  // wstępne pobranie reszty po pierwszym renderze (gotowe zanim doscrollujesz)
+  useEffect(() => {
+    const t = setTimeout(() => { import('../components/HomeBelowFold.jsx') }, 800)
+    return () => clearTimeout(t)
+  }, [])
+
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -30,16 +30,9 @@ export default function Home() {
       <SEO schema={schema} />
       <Hero />
       <Stats />
-      <div className="cv-section"><Values /></div>
-      <div className="cv-section"><Services /></div>
-      <div className="cv-section"><Gallery /></div>
-      <div className="cv-section"><ScrollMarquee /></div>
-      <div className="cv-section"><SocialFeed /></div>
-      <div className="cv-section"><Process /></div>
-      <div className="cv-section"><Testimonials /></div>
-      <div className="cv-section"><Clients /></div>
-      <div className="cv-section"><FAQ /></div>
-      <div className="cv-section"><CTA /></div>
+      <Suspense fallback={<div className="min-h-[40vh]" />}>
+        <HomeBelowFold />
+      </Suspense>
     </>
   )
 }
