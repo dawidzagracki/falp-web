@@ -32,8 +32,8 @@ export default function About() {
       <section className="pb-16 sm:pb-20">
         <div className="container-x grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ y: 24 }}
+            whileInView={{ y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="card p-7 sm:p-10 space-y-5 text-ink-700 leading-relaxed text-pretty glow-ring"
@@ -46,8 +46,8 @@ export default function About() {
             {values.map((v, i) => (
               <motion.div
                 key={v.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 24 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="card card-hover p-5 sm:p-6"

@@ -74,8 +74,8 @@ export default function Navbar() {
         </div>
       </header>
 
-      <div className={`lg:hidden fixed inset-0 z-40 transition-all duration-500 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-paper/97 backdrop-blur-2xl" onClick={() => setOpen(false)} />
+      <div className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-150 ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className="absolute inset-0 bg-paper" onClick={() => setOpen(false)} />
         <nav className="relative h-full flex flex-col justify-center container-x pt-20 pb-12 safe-bottom overflow-y-auto" aria-label="Menu mobilne">
           <div className="flex flex-col gap-1">
             {links.map((l, i) => (

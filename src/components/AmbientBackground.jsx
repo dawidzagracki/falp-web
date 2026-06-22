@@ -8,7 +8,7 @@
  */
 export default function AmbientBackground() {
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden>
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none animate-fade-in" aria-hidden>
       <div className="absolute -top-32 -left-24 h-[30rem] w-[30rem] lg:h-[44rem] lg:w-[44rem] rounded-full bg-brand/30 blur-[80px] lg:blur-[110px] animate-aurora [will-change:transform] [transform:translateZ(0)]" />
       <div className="absolute top-1/4 -right-28 h-[26rem] w-[26rem] lg:h-[40rem] lg:w-[40rem] rounded-full bg-brand-light/30 blur-[80px] lg:blur-[110px] animate-aurora [will-change:transform] [transform:translateZ(0)]" style={{ animationDelay: '-6s', animationDuration: '20s' }} />
       <div className="absolute bottom-0 left-1/4 h-[24rem] w-[24rem] lg:h-[36rem] lg:w-[36rem] rounded-full bg-brand/24 blur-[80px] lg:blur-[110px] animate-aurora [will-change:transform] [transform:translateZ(0)]" style={{ animationDelay: '-12s', animationDuration: '24s' }} />

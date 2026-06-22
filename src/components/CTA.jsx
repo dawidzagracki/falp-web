@@ -7,8 +7,8 @@ export default function CTA() {
     <section className="py-16 sm:py-20 lg:py-28">
       <div className="container-x">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ y: 30 }}
+          whileInView={{ y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-light via-brand to-brand-dark p-8 sm:p-12 lg:p-16 shadow-glow-brand-lg"

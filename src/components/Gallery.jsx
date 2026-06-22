@@ -29,8 +29,8 @@ export default function Gallery() {
           {items.map((r, i) => (
             <motion.article
               key={r.id}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ y: 28 }}
+              whileInView={{ y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
               className="group relative aspect-[4/5] rounded-2xl overflow-hidden cursor-pointer shadow-soft"

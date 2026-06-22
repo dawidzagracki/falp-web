@@ -36,8 +36,8 @@ export default function Offer() {
             return (
               <motion.div
                 key={s.slug}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ y: 28 }}
+                whileInView={{ y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.6, delay: (i % 3) * 0.08 }}
               >

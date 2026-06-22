@@ -82,7 +82,16 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Splash widoczny natychmiast (zastępowany przez React po zamontowaniu) -->
+      <div id="boot" style="position:fixed;inset:0;display:grid;place-items:center;background:#F7F9F4;z-index:9999">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+          <img src="/logo-mark.svg" width="60" height="60" alt="FALP Event" style="border-radius:15px;box-shadow:0 12px 40px -12px rgba(125,209,63,.5)"/>
+          <div style="width:32px;height:32px;border:3px solid rgba(15,27,10,.12);border-top-color:#5BA82A;border-radius:50%;animation:bootspin .7s linear infinite"></div>
+        </div>
+      </div>
+    </div>
+    <style>@keyframes bootspin{to{transform:rotate(360deg)}}</style>
     <noscript>Aby korzystać z falp.pl, włącz JavaScript w przeglądarce.</noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>

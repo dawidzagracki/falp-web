@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect, lazy, Suspense } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import ChatWidget from './components/ChatWidget.jsx'
@@ -33,9 +33,16 @@ const Loader = () => (
 )
 
 export default function App() {
+  // Odrocz ciężkie tło (rozmyte orby) do po pierwszym renderze — hero wstaje natychmiast
+  const [showBg, setShowBg] = useState(false)
+  useEffect(() => {
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setShowBg(true)))
+    return () => cancelAnimationFrame(id)
+  }, [])
+
   return (
     <div className="flex min-h-screen flex-col relative">
-      <AmbientBackground />
+      {showBg && <AmbientBackground />}
       <ScrollProgress />
       <ScrollToTop />
       <Navbar />

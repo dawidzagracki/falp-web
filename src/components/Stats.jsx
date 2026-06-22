@@ -39,8 +39,8 @@ export default function Stats() {
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
+              initial={{ y: 24 }}
+              animate={inView ? { y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="text-center lg:text-left relative"
             >
