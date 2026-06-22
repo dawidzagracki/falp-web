@@ -16,7 +16,7 @@ export default function ParticleField({ className = '', density = 1 }) {
     const ctx = canvas.getContext('2d')
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     let particles = []
     let raf = null
     let running = true

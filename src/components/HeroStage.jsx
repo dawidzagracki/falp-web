@@ -24,8 +24,8 @@ export default function HeroStage() {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    // ustaw bazowe wysokości słupków od razu
-    barsRef.current.forEach((el, i) => { if (el) el.style.height = `${14 + arch(i) * 55}%` })
+    // ustaw bazowe wysokości słupków od razu (scaleY zamiast height — bez layoutu)
+    barsRef.current.forEach((el, i) => { if (el) el.style.transform = `scaleY(${Math.max(0.08, (14 + arch(i) * 55) / 100)})` })
     if (reduced) return
 
     const onMove = (e) => {
@@ -55,7 +55,7 @@ export default function HeroStage() {
         const a = arch(i)
         const wob = Math.sin(t * 9 + i * 0.55) * 0.5 + 0.5
         const h = 12 + a * 46 * (0.45 + 0.55 * pulse) + wob * 18 * (0.35 + e) + e * 42 * a
-        el.style.height = `${Math.min(100, h)}%`
+        el.style.transform = `scaleY(${Math.min(1, h / 100)})`
       })
 
       const wscale = 1 + pulse * 0.16 + e * 0.18
@@ -123,8 +123,8 @@ export default function HeroStage() {
             <span
               key={i}
               ref={(el) => (barsRef.current[i] = el)}
-              className="flex-1 max-w-[11px] rounded-full bg-gradient-to-t from-brand-dark via-brand to-brand-glow origin-bottom shadow-[0_0_10px_rgba(168,255,108,0.3)]"
-              style={{ height: '14%' }}
+              className="flex-1 max-w-[11px] h-full rounded-full bg-gradient-to-t from-brand-dark via-brand to-brand-glow origin-bottom shadow-[0_0_10px_rgba(168,255,108,0.3)] will-change-transform"
+              style={{ transform: 'scaleY(0.14)' }}
             />
           ))}
         </div>

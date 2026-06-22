@@ -79,9 +79,9 @@ export default {
           '50%': { transform: 'translateY(-12px)' }
         },
         aurora: {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '33%': { transform: 'translate(8%, -10%) scale(1.15)' },
-          '66%': { transform: 'translate(-8%, 8%) scale(0.92)' }
+          '0%, 100%': { transform: 'translate3d(0, 0, 0)' },
+          '33%': { transform: 'translate3d(7%, -9%, 0)' },
+          '66%': { transform: 'translate3d(-7%, 7%, 0)' }
         },
         ledPulse: {
           '0%, 100%': { opacity: '0.12' },
