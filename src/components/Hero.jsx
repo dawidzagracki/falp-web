@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Play, ArrowRight, Sparkles } from 'lucide-react'
 import ParticleField from './ParticleField.jsx'
 import HeroStage from './HeroStage.jsx'
@@ -8,6 +8,16 @@ import HeroMarquee from './HeroMarquee.jsx'
 
 export default function Hero() {
   const ref = useRef(null)
+  // Sieć cząstek (canvas) tylko na desktopie — na mobile zjada wydajność, a i tak nie ma kursora
+  const [desktop, setDesktop] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const upd = () => setDesktop(mq.matches)
+    upd()
+    mq.addEventListener('change', upd)
+    return () => mq.removeEventListener('change', upd)
+  }, [])
+
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const yContent = useTransform(scrollYProgress, [0, 1], [0, 80])
   const yParticles = useTransform(scrollYProgress, [0, 1], [0, 160])
@@ -16,9 +26,11 @@ export default function Hero() {
 
   return (
     <section ref={ref} className="relative pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-      {/* Interaktywne tło — sieć cząstek na całą szerokość */}
+      {/* Interaktywne tło — sieć cząstek (tylko desktop), na mobile lekki gradient */}
       <motion.div style={{ y: yParticles, scale }} className="absolute inset-0 -z-10">
-        <ParticleField className="h-full w-full" />
+        {desktop
+          ? <ParticleField className="h-full w-full" />
+          : <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(125,209,63,0.12),transparent_70%)]" />}
       </motion.div>
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-brand/15 blur-[120px] animate-glow-pulse" />

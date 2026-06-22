@@ -12,6 +12,7 @@ const BAR_COUNT = 28
 const arch = (i) => Math.sin((i / (BAR_COUNT - 1)) * Math.PI) // niżej po bokach, wyżej w środku
 
 export default function HeroStage() {
+  const rootRef = useRef(null)
   const barsRef = useRef([])
   const wooferL = useRef(null)
   const wooferR = useRef(null)
@@ -23,10 +24,9 @@ export default function HeroStage() {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-    if (reduced) {
-      barsRef.current.forEach((el, i) => { if (el) el.style.height = `${14 + arch(i) * 55}%` })
-      return
-    }
+    // ustaw bazowe wysokości słupków od razu
+    barsRef.current.forEach((el, i) => { if (el) el.style.height = `${14 + arch(i) * 55}%` })
+    if (reduced) return
 
     const onMove = (e) => {
       const now = performance.now()
@@ -41,7 +41,8 @@ export default function HeroStage() {
     window.addEventListener('mousemove', onMove, { passive: true })
 
     const start = performance.now()
-    let raf
+    let raf = null
+    let running = false
     const loop = () => {
       const t = (performance.now() - start) / 1000
       // rytm — krótki, „uderzający" puls ~1.9 Hz
@@ -66,11 +67,27 @@ export default function HeroStage() {
       if (ringL.current) { ringL.current.style.transform = `scale(${rs})`; ringL.current.style.opacity = ro }
       if (ringR.current) { ringR.current.style.transform = `scale(${rs})`; ringR.current.style.opacity = ro }
 
-      raf = requestAnimationFrame(loop)
+      if (running) raf = requestAnimationFrame(loop)
     }
-    raf = requestAnimationFrame(loop)
 
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('mousemove', onMove) }
+    // uruchamiaj pętlę tylko gdy scena jest widoczna (oszczędza CPU/baterię na mobile)
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !running) {
+        running = true
+        raf = requestAnimationFrame(loop)
+      } else if (!entry.isIntersecting && running) {
+        running = false
+        if (raf) { cancelAnimationFrame(raf); raf = null }
+      }
+    }, { threshold: 0 })
+    if (rootRef.current) io.observe(rootRef.current)
+
+    return () => {
+      running = false
+      if (raf) cancelAnimationFrame(raf)
+      io.disconnect()
+      window.removeEventListener('mousemove', onMove)
+    }
   }, [])
 
   const Speaker = ({ wooferRef, ringRef }) => (
@@ -91,7 +108,7 @@ export default function HeroStage() {
   )
 
   return (
-    <div className="relative aspect-[4/3] sm:aspect-video w-full rounded-[1.75rem] overflow-hidden glow-ring shadow-glow-brand-lg bg-gradient-to-b from-ink-900 via-ink-800 to-ink-900">
+    <div ref={rootRef} className="relative aspect-[4/3] sm:aspect-video w-full rounded-[1.75rem] overflow-hidden glow-ring shadow-glow-brand-lg bg-gradient-to-b from-ink-900 via-ink-800 to-ink-900">
       {/* szkło + poświata */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(125,209,63,0.18),transparent_60%)]" aria-hidden />
       <div className="absolute left-1/2 top-[60%] -translate-x-1/2 -translate-y-1/2 h-[60%] w-[70%] rounded-full bg-brand/25 blur-[70px]" aria-hidden />
