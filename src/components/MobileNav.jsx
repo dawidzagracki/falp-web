@@ -16,7 +16,7 @@ const items = [
 export default function MobileNav() {
   return (
     <nav
-      className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 safe-bottom"
+      className="lg:hidden fixed bottom-2 left-1/2 -translate-x-1/2 z-50"
       aria-label="Nawigacja mobilna"
     >
       <div className="relative flex items-center gap-1 rounded-full border border-white/60 bg-white/55 px-2 py-2 shadow-[0_12px_40px_-10px_rgba(15,27,10,0.35)] backdrop-blur-xl overflow-hidden">
