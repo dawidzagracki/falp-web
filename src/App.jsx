@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect, useState, lazy, Suspense } from 'react'
 import Navbar from './components/Navbar.jsx'
+import MobileNav from './components/MobileNav.jsx'
 import Footer from './components/Footer.jsx'
-import ChatWidget from './components/ChatWidget.jsx'
 import ScrollProgress from './components/ScrollProgress.jsx'
 import CookieBanner from './components/CookieBanner.jsx'
 import AmbientBackground from './components/AmbientBackground.jsx'
@@ -65,7 +65,7 @@ export default function App() {
         </Suspense>
       </main>
       <Footer />
-      <ChatWidget />
+      <MobileNav />
       <CookieBanner />
     </div>
   )

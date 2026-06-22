@@ -2,10 +2,9 @@ import { useEffect, useRef } from 'react'
 
 /**
  * Interaktywna sieć cząstek (constellation) na <canvas>.
- * - cząstki łączą się liniami, reagują na kursor
- * - mocny kontrast (ciemniejsza zieleń), gęstsza siatka, więcej ruchu
- * - lekka: liczba skalowana do powierzchni, pauza poza ekranem
- * - szanuje prefers-reduced-motion (statyczne kropki)
+ * - ruch oparty na DELTA-TIME (spójny na 60/120/144 Hz)
+ * - render ograniczony do ~60 fps (na ekranach 144 Hz nie próbuje gonić odświeżania → brak zacinania)
+ * - reaguje na kursor, pauza poza ekranem, statyczne przy prefers-reduced-motion
  */
 export default function ParticleField({ className = '', density = 1 }) {
   const canvasRef = useRef(null)
@@ -19,11 +18,14 @@ export default function ParticleField({ className = '', density = 1 }) {
     let w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     let particles = []
     let raf = null
-    let running = true
+    let running = false
+    let lastDraw = 0
+    let lastSim = 0
+    const FRAME = 1000 / 60        // limit ~60 fps
     const mouse = { x: -9999, y: -9999 }
 
-    const DOT = '91,168,42'    // brand-dark — mocniejszy kontrast na jasnym tle
-    const LINE = '70,144,31'   // brand-text
+    const DOT = '91,168,42'
+    const LINE = '70,144,31'
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
@@ -33,8 +35,8 @@ export default function ParticleField({ className = '', density = 1 }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
       const isMobile = w < 640
-      const base = isMobile ? 15000 : 10000
-      const count = Math.min(170, Math.floor((w * h) / base * density))
+      const base = isMobile ? 16000 : 13000
+      const count = Math.min(130, Math.floor((w * h) / base * density))
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w,
         y: Math.random() * h,
@@ -44,23 +46,23 @@ export default function ParticleField({ className = '', density = 1 }) {
       }))
     }
 
-    const linkDist = () => (w < 640 ? 120 : 170)
+    const linkDist = () => (w < 640 ? 120 : 150)
 
-    const draw = () => {
+    const render = (dt) => {
       ctx.clearRect(0, 0, w, h)
       const LD = linkDist()
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i]
-        p.x += p.vx; p.y += p.vy
+        p.x += p.vx * dt; p.y += p.vy * dt
         if (p.x < 0 || p.x > w) p.vx *= -1
         if (p.y < 0 || p.y > h) p.vy *= -1
 
         const dxm = mouse.x - p.x, dym = mouse.y - p.y
         const dm = Math.hypot(dxm, dym)
         if (dm < 180) {
-          p.x += dxm * 0.0012 * (180 - dm) / 180 * 6
-          p.y += dym * 0.0012 * (180 - dm) / 180 * 6
+          p.x += dxm * 0.0012 * (180 - dm) / 180 * 6 * dt
+          p.y += dym * 0.0012 * (180 - dm) / 180 * 6 * dt
         }
 
         ctx.beginPath()
@@ -91,7 +93,15 @@ export default function ParticleField({ className = '', density = 1 }) {
           ctx.stroke()
         }
       }
-      if (running) raf = requestAnimationFrame(draw)
+    }
+
+    const loop = (now) => {
+      if (running) raf = requestAnimationFrame(loop)
+      if (now - lastDraw < FRAME - 0.5) return
+      const dt = Math.min((now - lastSim) / 16.667, 3) || 1
+      lastSim = now
+      lastDraw = now
+      render(dt)
     }
 
     const drawStatic = () => {
@@ -112,9 +122,14 @@ export default function ParticleField({ className = '', density = 1 }) {
     const onLeave = () => { mouse.x = -9999; mouse.y = -9999 }
 
     const io = new IntersectionObserver(([entry]) => {
-      running = entry.isIntersecting && !reduced
-      if (running && !raf) raf = requestAnimationFrame(draw)
-      if (!running && raf) { cancelAnimationFrame(raf); raf = null }
+      if (entry.isIntersecting && !reduced && !running) {
+        running = true
+        lastSim = performance.now()
+        raf = requestAnimationFrame(loop)
+      } else if (!entry.isIntersecting && running) {
+        running = false
+        if (raf) { cancelAnimationFrame(raf); raf = null }
+      }
     }, { threshold: 0 })
 
     resize()
@@ -124,7 +139,6 @@ export default function ParticleField({ className = '', density = 1 }) {
     window.addEventListener('mouseleave', onLeave)
 
     if (reduced) drawStatic()
-    else raf = requestAnimationFrame(draw)
 
     return () => {
       io.disconnect()

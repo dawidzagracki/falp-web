@@ -5,7 +5,7 @@ import Logo from './Logo.jsx'
 
 export default function Footer() {
   return (
-    <footer className="mt-24 sm:mt-32 border-t border-ink-900/[0.07] bg-cream relative z-10">
+    <footer className="mt-24 sm:mt-32 border-t border-ink-900/[0.07] bg-cream relative z-10 pb-24 lg:pb-0">
       <div className="container-x py-12 sm:py-16">
         <div className="grid gap-10 sm:gap-12 sm:grid-cols-2 lg:grid-cols-4">
           <div>

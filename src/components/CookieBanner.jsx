@@ -48,7 +48,7 @@ export default function CookieBanner() {
 
   return (
     <div
-      className={`fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[55] safe-bottom transition-all duration-500 ${enter ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+      className={`fixed bottom-28 lg:bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-[55] safe-bottom transition-all duration-500 ${enter ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
       role="dialog"
       aria-labelledby="cookie-title"
     >
