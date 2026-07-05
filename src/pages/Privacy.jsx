@@ -5,8 +5,8 @@ const sections = [
   {
     h: '1. Administrator danych',
     body: [
-      'Administratorem Twoich danych osobowych jest FALP Event z siedzibą w Będzinie (42-500), ul. Przykładowa 12, NIP: 0000000000.',
-      'Kontakt w sprawach związanych z ochroną danych: biuro@falp.pl, tel. +48 000 000 000.'
+      'Administratorem Twoich danych osobowych jest FALP Event z siedzibą w Będzinie (42-500), NIP: 0000000000.',
+      'Kontakt w sprawach związanych z ochroną danych: biuro@falp.pl, tel. 790 880 421.'
     ]
   },
   {

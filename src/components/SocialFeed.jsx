@@ -122,13 +122,13 @@ function PlaceholderGrid() {
             rel="noopener noreferrer"
             className="group relative aspect-square rounded-2xl overflow-hidden shadow-soft"
           >
-            <div className={`absolute inset-0 bg-gradient-to-br ${p.color} transition-transform duration-700 group-hover:scale-110`} />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.2),transparent_60%)]" />
+            {p.image
+              ? <img src={p.image} alt={p.caption} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              : <div className="absolute inset-0 bg-gradient-to-br from-brand to-brand-dark" />}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-            <Instagram size={20} className="absolute top-3 right-3 text-white/90" />
+            <Instagram size={20} className="absolute top-3 right-3 text-white/90 drop-shadow" />
             <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-white">
-              <span className="text-[10px] uppercase tracking-wider text-white/80">{p.tag}</span>
-              <p className="text-sm font-semibold leading-tight mt-0.5 text-balance">{p.caption}</p>
+              <p className="text-sm font-semibold leading-tight text-balance">{p.caption}</p>
             </div>
           </a>
         ))}

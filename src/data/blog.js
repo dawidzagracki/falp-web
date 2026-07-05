@@ -7,6 +7,7 @@ export const blogPosts = [
     date: '2026-05-10',
     readTime: 8,
     color: 'from-brand/30 to-emerald-900',
+    image: '/realizacje/zaglebiowska-izba-gospodarcza-bal-charytatywny/img-01.webp',
     content: [
       { type: 'p', text: 'Organizacja eventu firmowego to wyzwanie, które wymaga dobrego planowania i zespołu specjalistów. W tym artykule pokazujemy 7 kluczowych kroków, które pomogą Ci stworzyć wydarzenie, o którym będzie się mówić.' },
       { type: 'h', text: '1. Określ cel wydarzenia' },
@@ -33,6 +34,7 @@ export const blogPosts = [
     date: '2026-04-22',
     readTime: 6,
     color: 'from-purple-600 to-purple-900',
+    image: '/realizacje/the-syde/img-01.webp',
     content: [
       { type: 'p', text: 'Branża eventowa w 2026 roku stawia na personalizację, technologię i zrównoważony rozwój. Oto najważniejsze trendy, które warto włączyć do strategii.' },
       { type: 'h', text: 'Eko-eventy i zero waste' },
@@ -53,6 +55,7 @@ export const blogPosts = [
     date: '2026-03-15',
     readTime: 7,
     color: 'from-blue-600 to-blue-900',
+    image: '/realizacje/tauron-blizej-energetyki/img-01.webp',
     content: [
       { type: 'p', text: 'Dobra technika jest niewidoczna — działa tak, że goście nie zwracają na nią uwagi. Ale gdy zawodzi, psuje cały event. Sprawdź, na co zwrócić uwagę.' },
       { type: 'h', text: 'Ekrany LED — pitch ma znaczenie' },

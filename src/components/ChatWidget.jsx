@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const quickReplies = [
   { q: 'Jaką macie ofertę?', a: 'Realizujemy 6 obszarów usług: agencja artystyczna, imprezy firmowe, PR events, technika sceniczna, agencja reklamowa oraz hostessy i hości. Zerknij na 👉 [Ofertę](/oferta).' },
   { q: 'Gdzie jest wasze biuro?', a: 'Nasze biuro mieści się w Będzinie (woj. śląskie). Działamy w całej Polsce — przyjeżdżamy tam, gdzie jest Twoje wydarzenie.' },
-  { q: 'Jak się z wami skontaktować?', a: 'Najszybciej przez 👉 [formularz kontaktowy](/kontakt). Możesz też napisać na biuro@falp.pl lub zadzwonić: +48 000 000 000.' },
+  { q: 'Jak się z wami skontaktować?', a: 'Najszybciej przez 👉 [formularz kontaktowy](/kontakt). Możesz też napisać na biuro@falp.pl lub zadzwonić: 790 880 421.' },
   { q: 'Czy macie wolny termin?', a: 'Terminy potwierdzamy indywidualnie. Wypełnij krótki 👉 [formularz](/kontakt) z datą i typem wydarzenia — odpowiemy w 24h.' },
   { q: 'Ile kosztuje organizacja eventu?', a: 'Każdy event wyceniamy indywidualnie — zależy od skali, lokalizacji i zakresu. Bezpłatną wycenę otrzymasz po wypełnieniu 👉 [formularza](/kontakt).' }
 ]
@@ -54,7 +54,7 @@ export default function ChatWidget() {
       {open && (
         <div className="fixed bottom-24 right-6 z-40 w-[calc(100vw-3rem)] max-w-sm rounded-2xl border border-ink-900/10 bg-white shadow-soft-lg overflow-hidden animate-fade-up">
           <div className="flex items-center gap-3 border-b border-ink-900/[0.07] bg-gradient-to-r from-brand/15 to-transparent p-4">
-            <img src="/logo-mark.svg" alt="FALP Event" className="h-10 w-10 rounded-full" />
+            <img src="/logo-mark.jpg" alt="FALP Event" className="h-10 w-10 rounded-full object-cover" />
             <div>
               <div className="font-bold text-sm text-ink-900">Asystent FALP Event</div>
               <div className="flex items-center gap-1.5 text-xs text-ink-muted">

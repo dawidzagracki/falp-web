@@ -4,10 +4,10 @@ import PageHeader from '../components/PageHeader.jsx'
 import ContactForm from '../components/ContactForm.jsx'
 
 const info = [
-  { icon: Phone, label: 'Telefon', value: '+48 000 000 000', href: 'tel:+48000000000' },
+  { icon: Phone, label: 'Telefon', value: '790 880 421', href: 'tel:+48790880421' },
   { icon: Mail, label: 'E-mail', value: 'biuro@falp.pl', href: 'mailto:biuro@falp.pl' },
-  { icon: MapPin, label: 'Adres', value: 'ul. Przykładowa 12\n42-500 Będzin' },
-  { icon: Clock, label: 'Godziny pracy', value: 'Pn-Pt: 9:00–17:00\nSo-Nd: na umówione' }
+  { icon: MapPin, label: 'Adres', value: '42-500 Będzin' },
+  { icon: Clock, label: 'Godziny pracy', value: 'Pn-Pt: 8:00–16:00\nSo-Nd: zamknięte' }
 ]
 
 export default function Contact() {

@@ -15,8 +15,8 @@ export default function Footer() {
             </p>
             <div className="flex gap-2">
               {[
-                { Icon: Instagram, label: 'Instagram', href: '#' },
-                { Icon: Facebook, label: 'Facebook', href: '#' },
+                { Icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/falpevent/' },
+                { Icon: Facebook, label: 'Facebook', href: 'https://www.facebook.com/falpevent' },
                 { Icon: Linkedin, label: 'LinkedIn', href: '#' }
               ].map(({ Icon, label, href }) => (
                 <a key={label} href={href} aria-label={label} className="grid h-10 w-10 place-items-center rounded-lg border border-ink-900/10 bg-white text-ink-700 transition hover:border-brand/50 hover:text-brand-text hover:-translate-y-0.5">
@@ -55,11 +55,11 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3 text-ink-muted">
                 <MapPin size={16} className="mt-0.5 text-brand-text shrink-0" />
-                <span>ul. Przykładowa 12<br />42-500 Będzin</span>
+                <span>42-500 Będzin</span>
               </li>
               <li className="flex items-center gap-3 text-ink-muted">
                 <Phone size={16} className="text-brand-text shrink-0" />
-                <a href="tel:+48000000000" className="hover:text-brand-text transition">+48 000 000 000</a>
+                <a href="tel:+48790880421" className="hover:text-brand-text transition">790 880 421</a>
               </li>
               <li className="flex items-center gap-3 text-ink-muted">
                 <Mail size={16} className="text-brand-text shrink-0" />

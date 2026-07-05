@@ -15,7 +15,7 @@ export default function Logo({ withWordmark = true, to = '/', className = '' }) 
     <>
       <span className="relative shrink-0">
         <img
-          src="/logo-mark.svg"
+          src="/logo-mark.jpg"
           alt="FALP Event"
           width="44"
           height="44"

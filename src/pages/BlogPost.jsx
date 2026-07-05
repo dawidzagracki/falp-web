@@ -25,7 +25,7 @@ export default function BlogPost() {
     description: post.excerpt,
     datePublished: post.date,
     author: { '@type': 'Organization', name: 'FALP Event' },
-    publisher: { '@type': 'Organization', name: 'FALP Event', logo: { '@type': 'ImageObject', url: 'https://falp.pl/logo-mark.svg' } },
+    publisher: { '@type': 'Organization', name: 'FALP Event', logo: { '@type': 'ImageObject', url: 'https://falp.pl/logo-mark.jpg' } },
     mainEntityOfPage: `https://falp.pl/blog/${slug}`
   }
 
@@ -50,8 +50,10 @@ export default function BlogPost() {
           <h1 className="text-fluid-h1 font-black leading-[1.02] mb-6 text-balance">{post.title}</h1>
           <p className="text-base sm:text-lg text-ink-muted text-pretty mb-10">{post.excerpt}</p>
 
-          <div className={`aspect-[16/8] rounded-2xl bg-gradient-to-br ${post.color} mb-10 overflow-hidden relative shadow-soft`}>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.18),transparent_60%)]" />
+          <div className="aspect-[16/8] rounded-2xl mb-10 overflow-hidden relative shadow-soft bg-cream">
+            {post.image
+              ? <img src={post.image} alt={post.title} className="absolute inset-0 h-full w-full object-cover" />
+              : <div className={`absolute inset-0 bg-gradient-to-br ${post.color}`} />}
           </div>
 
           <div className="space-y-5 text-ink-700 leading-relaxed text-pretty text-base sm:text-lg">
@@ -70,7 +72,11 @@ export default function BlogPost() {
             <div className="grid gap-5 md:grid-cols-2">
               {others.map(o => (
                 <Link key={o.slug} to={`/blog/${o.slug}`} className="card card-hover group p-6 flex gap-5 items-start">
-                  <div className={`shrink-0 h-20 w-20 rounded-xl bg-gradient-to-br ${o.color}`} />
+                  <div className="shrink-0 h-20 w-20 rounded-xl overflow-hidden bg-cream">
+                    {o.image
+                      ? <img src={o.image} alt={o.title} loading="lazy" className="h-full w-full object-cover" />
+                      : <div className={`h-full w-full bg-gradient-to-br ${o.color}`} />}
+                  </div>
                   <div className="min-w-0">
                     <span className="text-xs text-brand-text font-semibold uppercase tracking-wider">{o.category}</span>
                     <h3 className="font-bold mt-1 mb-1 text-ink-900 group-hover:text-brand-text transition line-clamp-2">{o.title}</h3>

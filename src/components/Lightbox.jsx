@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { X, ChevronLeft, ChevronRight, Play } from 'lucide-react'
 
 /**
@@ -36,8 +37,8 @@ export default function Lightbox({ event, startIndex = 0, onClose }) {
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) { dx < 0 ? next() : prev() }
   }
 
-  return (
-    <div className="fixed inset-0 z-[70] bg-ink-950/95 backdrop-blur-sm flex flex-col animate-fade-in" role="dialog" aria-label={`Galeria: ${event.title}`}>
+  return createPortal(
+    <div className="fixed inset-0 z-[70] bg-ink-950/[0.97] backdrop-blur-lg flex flex-col animate-fade-in" role="dialog" aria-label={`Galeria: ${event.title}`}>
       {/* Górny pasek */}
       <div className="flex items-center justify-between gap-4 px-4 sm:px-6 h-16 shrink-0 text-white">
         <div className="min-w-0">
@@ -64,14 +65,14 @@ export default function Lightbox({ event, startIndex = 0, onClose }) {
             playsInline
             preload="none"
             poster={event.cover || undefined}
-            className="max-h-full max-w-full rounded-lg bg-black"
+            className="max-h-full max-w-full rounded-xl bg-black ring-1 ring-white/15 shadow-[0_15px_70px_-8px_rgba(0,0,0,0.85)]"
           />
         ) : (
           <img
             key={current.src}
             src={current.src}
             alt={`${event.title} — zdjęcie ${index + 1}`}
-            className="max-h-full max-w-full object-contain rounded-lg"
+            className="max-h-full max-w-full object-contain rounded-xl ring-1 ring-white/15 shadow-[0_15px_70px_-8px_rgba(0,0,0,0.85)]"
             draggable={false}
           />
         )}
@@ -105,6 +106,7 @@ export default function Lightbox({ event, startIndex = 0, onClose }) {
           ))}
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   )
 }

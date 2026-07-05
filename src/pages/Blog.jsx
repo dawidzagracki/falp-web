@@ -36,8 +36,11 @@ export default function Blog() {
                 transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
               >
                 <Link to={`/blog/${p.slug}`} className="card card-hover group h-full overflow-hidden flex flex-col">
-                  <div className={`relative aspect-[16/10] bg-gradient-to-br ${p.color} overflow-hidden`}>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.18),transparent_60%)]" />
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    {p.image
+                      ? <img src={p.image} alt={p.title} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                      : <div className={`absolute inset-0 bg-gradient-to-br ${p.color}`} />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
                     <div className="absolute top-4 left-4">
                       <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">{p.category}</span>
                     </div>
