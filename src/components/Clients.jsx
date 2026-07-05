@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { clients } from '../data/realizations.js'
+import { clients } from '../data/clients.js'
 import SectionLabel from './SectionLabel.jsx'
 
 const logoUrl = (slug, color) => `https://cdn.simpleicons.org/${slug}/${color}`

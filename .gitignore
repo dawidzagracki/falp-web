@@ -11,5 +11,8 @@ dist-ssr
 *.tgz
 *.tar.gz
 
+# Surowe źródła realizacji (przetwarzane skryptem do public/realizacje)
+_realizacje_src/
+
 # Docker
 .docker/
