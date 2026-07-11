@@ -14,5 +14,8 @@ dist-ssr
 # Surowe źródła realizacji (przetwarzane skryptem do public/realizacje)
 _realizacje_src/
 
+# Notatki wewnętrzne (szczegóły infrastruktury — nie publikować w publicznym repo)
+HANDOFF.md
+
 # Docker
 .docker/
