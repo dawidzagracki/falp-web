@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — FALP event | agencja eventowa Będzin</title>
+<meta name="description" content="Blog agencji eventowej FALP event: porady o organizacji integracji, gal, imprez sportowych i eventów w duchu EKO. 18 lat doświadczenia.">
+<link rel="canonical" href="https://falp.pl/blog/">
+<link rel="icon" type="image/png" href="../assets/brand/falp-sygnet-fe.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .blog-top{padding:150px 0 40px}
+  .blog-list{display:grid;gap:26px;max-width:820px;margin:40px auto 110px;padding:0 28px}
+  .wpis-karta{
+    background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px 36px;
+    text-decoration:none;display:block;transition:transform .25s,box-shadow .25s;
+  }
+  .wpis-karta:hover{transform:translateY(-4px);box-shadow:0 18px 40px -18px rgba(73,73,72,.25)}
+  .wpis-karta time{color:var(--green-dark);font-weight:600;font-size:13.5px}
+  .wpis-karta h2{color:var(--ink);font-size:clamp(21px,2.4vw,27px);font-weight:700;letter-spacing:-.02em;margin:8px 0 10px;line-height:1.25}
+  .wpis-karta p{color:var(--gray);font-size:15.5px;line-height:1.65}
+  .wpis-karta .dalej{display:inline-block;margin-top:14px;color:var(--green-dark);font-weight:600;font-size:14.5px}
+  .pusto{text-align:center;color:var(--gray);padding:60px 0}
+</style>
+</head>
+<body>
+<header id="hdr" class="scrolled" style="position:sticky">
+  <div class="wrap nav">
+    <a class="logo" href="../"><img class="l-color" style="display:block" src="../assets/brand/falp-logo-kolor.png" alt="FALP event" height="26"></a>
+    <ul class="menu">
+      <li><a href="../#o-nas">O nas</a></li>
+      <li><a href="../#mozliwosci">Możliwości</a></li>
+      <li><a href="./" style="color:var(--green-dark)">Blog</a></li>
+      <li><a href="../#kontakt">Kontakt</a></li>
+    </ul>
+    <a class="cta" href="tel:+48790880421">790 880 421</a>
+  </div>
+</header>
+
+<section class="blog-top" style="padding-bottom:0">
+  <div class="wrap">
+    <span class="hash">aktualności i porady</span>
+    <h1 class="display" style="font-size:clamp(44px,6.5vw,92px)">blog</h1>
+  </div>
+</section>
+
+<div class="blog-list" id="lista"><div class="pusto">Wczytywanie wpisów…</div></div>
+
+<footer>
+  <div class="wrap foot">
+    <a href="../"><img src="../assets/brand/falp-logo-memories-kolor.png" alt="FALP event — we create memories." style="display:block;height:42px;width:auto"></a>
+    <div>© FALP event · Będzin</div>
+  </div>
+</footer>
+
+<script>
+fetch('posts.json', {cache: 'no-cache'}).then(r => r.json()).then(posty => {
+  const el = document.getElementById('lista');
+  if (!posty.length) { el.innerHTML = '<div class="pusto">Jeszcze nie ma wpisów — zajrzyj wkrótce!</div>'; return; }
+  el.innerHTML = '';
+  for (const p of posty) {
+    const a = document.createElement('a');
+    a.className = 'wpis-karta';
+    a.href = 'wpis.html?w=' + encodeURIComponent(p.slug);
+    const d = new Date(p.data).toLocaleDateString('pl-PL', {year: 'numeric', month: 'long', day: 'numeric'});
+    a.innerHTML = '<time></time><h2></h2><p></p><span class="dalej">Czytaj dalej →</span>';
+    a.querySelector('time').textContent = d;
+    a.querySelector('h2').textContent = p.tytul;
+    a.querySelector('p').textContent = p.zajawka;
+    el.appendChild(a);
+  }
+}).catch(() => {
+  document.getElementById('lista').innerHTML = '<div class="pusto">Nie udało się wczytać wpisów.</div>';
+});
+</script>
+</body>
+</html>

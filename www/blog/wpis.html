@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — FALP event</title>
+<meta name="description" content="Wpis na blogu agencji eventowej FALP event.">
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/png" href="../assets/brand/falp-sygnet-fe.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .wpis{max-width:780px;margin:0 auto;padding:150px 28px 110px}
+  .wpis time{color:var(--green-dark);font-weight:600;font-size:14px}
+  .wpis h1{font-size:clamp(32px,4.6vw,54px);font-weight:700;letter-spacing:-.025em;line-height:1.12;margin:12px 0 30px;color:var(--ink)}
+  .wpis .tresc p{font-size:17.5px;line-height:1.75;color:var(--ink);margin-bottom:22px;font-weight:400}
+  .wpis .powrot{display:inline-block;margin-top:30px;color:var(--green-dark);font-weight:600;text-decoration:none}
+  .wpis .powrot:hover{text-decoration:underline}
+  .u{display:block;width:52px;height:5px;background:var(--green);border-radius:2px;margin:0 0 28px}
+</style>
+</head>
+<body>
+<header id="hdr" class="scrolled" style="position:sticky">
+  <div class="wrap nav">
+    <a class="logo" href="../"><img class="l-color" style="display:block" src="../assets/brand/falp-logo-kolor.png" alt="FALP event" height="26"></a>
+    <ul class="menu">
+      <li><a href="../#o-nas">O nas</a></li>
+      <li><a href="../#mozliwosci">Możliwości</a></li>
+      <li><a href="./" style="color:var(--green-dark)">Blog</a></li>
+      <li><a href="../#kontakt">Kontakt</a></li>
+    </ul>
+    <a class="cta" href="tel:+48790880421">790 880 421</a>
+  </div>
+</header>
+
+<article class="wpis" id="wpis">
+  <p style="color:var(--gray)">Wczytywanie…</p>
+</article>
+
+<footer>
+  <div class="wrap foot">
+    <a href="../"><img src="../assets/brand/falp-logo-memories-kolor.png" alt="FALP event — we create memories." style="display:block;height:42px;width:auto"></a>
+    <div>© FALP event · Będzin</div>
+  </div>
+</footer>
+
+<script>
+const slug = new URLSearchParams(location.search).get('w');
+fetch('posts.json', {cache: 'no-cache'}).then(r => r.json()).then(posty => {
+  const p = posty.find(x => x.slug === slug);
+  const el = document.getElementById('wpis');
+  if (!p) { el.innerHTML = '<h1>Nie znaleziono wpisu</h1><a class="powrot" href="./">← Wróć na blog</a>'; return; }
+  document.title = p.tytul + ' — blog FALP event';
+  document.querySelector('meta[name="description"]').content = p.zajawka;
+  const d = new Date(p.data).toLocaleDateString('pl-PL', {year: 'numeric', month: 'long', day: 'numeric'});
+  el.innerHTML = '<time></time><h1></h1><span class="u"></span><div class="tresc"></div><a class="powrot" href="./">← Wszystkie wpisy</a>';
+  el.querySelector('time').textContent = d;
+  el.querySelector('h1').textContent = p.tytul;
+  const tresc = el.querySelector('.tresc');
+  for (const akapit of p.tresc.split(/\n\n+/)) {
+    const par = document.createElement('p');
+    par.textContent = akapit;
+    tresc.appendChild(par);
+  }
+  // dane strukturalne wpisu dla Google
+  const ld = document.createElement('script');
+  ld.type = 'application/ld+json';
+  ld.textContent = JSON.stringify({
+    "@context": "https://schema.org", "@type": "BlogPosting",
+    "headline": p.tytul, "datePublished": p.data, "description": p.zajawka,
+    "author": {"@type": "Organization", "name": "FALP event"},
+    "publisher": {"@type": "Organization", "name": "FALP event"}
+  });
+  document.head.appendChild(ld);
+});
+</script>
+</body>
+</html>

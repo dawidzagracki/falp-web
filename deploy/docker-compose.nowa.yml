@@ -1,0 +1,21 @@
+# Nowa strona FALP event (statyka + blog API).
+# Uruchomienie:  docker compose -f deploy/docker-compose.nowa.yml up -d --build
+# Hasło admina:  plik deploy/.env.nowa z linią FALP_ADMIN_HASLO=twoje-haslo
+services:
+  falp-nowa:
+    build: ../www
+    container_name: falp-nowa
+    restart: unless-stopped
+    env_file:
+      - .env.nowa
+    volumes:
+      - falp_nowa_dane:/app/dane
+    networks:
+      - edge
+
+volumes:
+  falp_nowa_dane:
+
+networks:
+  edge:
+    external: true

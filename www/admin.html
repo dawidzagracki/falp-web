@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel bloga — FALP event</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="assets/brand/falp-sygnet-fe.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#76B837;--green-text:#5D9126;--ink:#494948;--line:#EAEAE8;--pale:#F1F7E9}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Montserrat',Verdana,sans-serif;background:#F7F7F5;color:var(--ink);min-height:100vh;padding:40px 20px}
+  .box{max-width:720px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px}
+  h1{font-size:24px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+  h1 img{height:34px}
+  label{display:block;font-size:13px;font-weight:600;margin:22px 0 6px;color:var(--ink)}
+  input,textarea{
+    width:100%;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;
+    font-family:inherit;font-size:15px;color:var(--ink);background:#fff;
+  }
+  input:focus,textarea:focus{outline:none;border-color:var(--green)}
+  textarea{min-height:220px;resize:vertical;line-height:1.6}
+  button{
+    font-family:inherit;font-weight:600;font-size:15px;border:none;cursor:pointer;
+    background:var(--green);color:#fff;border-radius:999px;padding:13px 30px;margin-top:24px;
+  }
+  button:hover{background:var(--green-text)}
+  .info{margin-top:16px;font-size:14px;font-weight:600;display:none}
+  .info.ok{color:var(--green-text);display:block}
+  .info.blad{color:#C0392B;display:block}
+  .hint{font-size:12.5px;color:#8a8a88;margin-top:6px}
+  .lista{margin-top:34px;border-top:1px solid var(--line);padding-top:22px}
+  .lista h2{font-size:16px;margin-bottom:12px}
+  .lista .rzad{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+  .lista .rzad a{color:var(--green-text);text-decoration:none;font-weight:600}
+  .lista .usun{background:#fff;color:#C0392B;border:1.5px solid #C0392B;padding:6px 16px;margin:0;font-size:13px}
+  .lista .usun:hover{background:#C0392B;color:#fff}
+  #panel{display:none}
+  .wyloguj{background:#fff;color:var(--ink);border:1.5px solid var(--line);padding:8px 18px;font-size:13px;margin:0}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1><img src="assets/brand/falp-sygnet-fe.png" alt="Fe">Panel bloga FALP event</h1>
+
+  <div id="logowanie">
+    <label for="haslo">Hasło administratora</label>
+    <input type="password" id="haslo" autocomplete="current-password" placeholder="••••••••">
+    <button id="zaloguj">Zaloguj</button>
+    <div class="info" id="infoLog"></div>
+  </div>
+
+  <div id="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+      <span style="font-size:13.5px;color:var(--green-text);font-weight:600">✓ Zalogowano</span>
+      <button class="wyloguj" id="wyloguj">Wyloguj</button>
+    </div>
+
+    <label for="tytul">Tytuł wpisu</label>
+    <input id="tytul" maxlength="120" placeholder="np. 5 pomysłów na piknik firmowy">
+    <label for="zajawka">Zajawka (opcjonalnie — widoczna na liście wpisów)</label>
+    <input id="zajawka" maxlength="200" placeholder="jedno–dwa zdania zachęty">
+    <label for="tresc">Treść</label>
+    <textarea id="tresc" placeholder="Treść wpisu. Pusta linia oddziela akapity."></textarea>
+    <div class="hint">Pusta linia = nowy akapit. HTML nie jest interpretowany (bezpieczne wklejanie).</div>
+    <button id="opublikuj">Opublikuj wpis</button>
+    <div class="info" id="infoWpis"></div>
+
+    <div class="lista">
+      <h2>Istniejące wpisy</h2>
+      <div id="wpisy"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let token = sessionStorage.getItem('falp_token') || '';
+const $ = id => document.getElementById(id);
+
+function pokazPanel(tak) {
+  $('logowanie').style.display = tak ? 'none' : 'block';
+  $('panel').style.display = tak ? 'block' : 'none';
+  if (tak) odswiezListe();
+}
+
+async function odswiezListe() {
+  const posty = await fetch('blog/posts.json', {cache: 'no-cache'}).then(r => r.json()).catch(() => []);
+  const el = $('wpisy');
+  el.innerHTML = posty.length ? '' : '<div style="color:#8a8a88;font-size:14px">Brak wpisów.</div>';
+  for (const p of posty) {
+    const r = document.createElement('div');
+    r.className = 'rzad';
+    r.innerHTML = '<span></span><span style="display:flex;gap:10px;align-items:center"><a target="_blank"></a><button class="usun">Usuń</button></span>';
+    r.querySelector('span').textContent = p.tytul;
+    const a = r.querySelector('a');
+    a.href = 'blog/wpis.html?w=' + encodeURIComponent(p.slug);
+    a.textContent = 'podgląd';
+    r.querySelector('.usun').onclick = async () => {
+      if (!confirm('Usunąć wpis "' + p.tytul + '"?')) return;
+      await fetch('/api/posty/' + p.slug, {method: 'DELETE', headers: {Authorization: 'Bearer ' + token}});
+      odswiezListe();
+    };
+    el.appendChild(r);
+  }
+}
+
+$('zaloguj').onclick = async () => {
+  const r = await fetch('/api/login', {method: 'POST', body: JSON.stringify({haslo: $('haslo').value})});
+  const d = await r.json();
+  const info = $('infoLog');
+  if (d.token) {
+    token = d.token;
+    sessionStorage.setItem('falp_token', token);
+    pokazPanel(true);
+  } else {
+    info.className = 'info blad';
+    info.textContent = d.blad || 'Błąd logowania';
+  }
+};
+$('haslo').addEventListener('keydown', e => { if (e.key === 'Enter') $('zaloguj').click(); });
+
+$('opublikuj').onclick = async () => {
+  const info = $('infoWpis');
+  const r = await fetch('/api/posty', {
+    method: 'POST',
+    headers: {Authorization: 'Bearer ' + token},
+    body: JSON.stringify({tytul: $('tytul').value, zajawka: $('zajawka').value, tresc: $('tresc').value})
+  });
+  const d = await r.json();
+  if (d.ok) {
+    info.className = 'info ok';
+    info.textContent = 'Opublikowano! Wpis jest już widoczny na blogu.';
+    $('tytul').value = $('zajawka').value = $('tresc').value = '';
+    odswiezListe();
+  } else {
+    info.className = 'info blad';
+    info.textContent = d.blad || 'Nie udało się opublikować';
+    if (r.status === 401) { sessionStorage.removeItem('falp_token'); pokazPanel(false); }
+  }
+};
+
+$('wyloguj').onclick = () => { sessionStorage.removeItem('falp_token'); token = ''; pokazPanel(false); };
+
+if (token) pokazPanel(true);
+</script>
+</body>
+</html>
