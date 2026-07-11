@@ -157,3 +157,61 @@
   });
   document.querySelectorAll('#aiQuick button').forEach(b =>
     b.addEventListener('click', () => wyslijDoFalpika(b.textContent)));
+
+  // ── formularz kontaktowy: suwaki + wysyłka ──
+  const cform = document.getElementById('cform');
+  if (cform) {
+    const pln = n => (+n).toLocaleString('pl-PL');
+    const goscie = document.getElementById('kfGoscie');
+    const budzet = document.getElementById('kfBudzet');
+    const gVal = document.getElementById('kfGoscieVal');
+    const bVal = document.getElementById('kfBudzetVal');
+    const wypelnij = el => {
+      const p = (el.value - el.min) / (el.max - el.min) * 100;
+      el.style.background = `linear-gradient(90deg, var(--green) ${p}%, var(--line) ${p}%)`;
+    };
+    const aktualizuj = () => {
+      gVal.textContent = pln(goscie.value) + (goscie.value >= +goscie.max ? '+ osób' : ' osób');
+      bVal.textContent = pln(budzet.value) + (budzet.value >= +budzet.max ? '+ zł' : ' zł');
+      wypelnij(goscie); wypelnij(budzet);
+    };
+    [goscie, budzet].forEach(s => s.addEventListener('input', aktualizuj));
+    aktualizuj();
+
+    const info = document.getElementById('cformInfo');
+    const pokazBlad = t => { info.className = 'f-info blad'; info.textContent = t; };
+
+    cform.addEventListener('submit', async e => {
+      e.preventDefault();
+      const imie = document.getElementById('kfImie').value.trim();
+      const kontakt = document.getElementById('kfKontakt').value.trim();
+      if (imie.length < 2) return pokazBlad('Podaj imię i nazwisko.');
+      if (kontakt.length < 5) return pokazBlad('Podaj e-mail lub numer telefonu.');
+      if (!document.getElementById('kfZgoda').checked) return pokazBlad('Zaznacz zgodę na przetwarzanie danych.');
+
+      const btn = cform.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = 'Wysyłanie…';
+      try {
+        const r = await fetch('/api/kontakt', {method: 'POST', body: JSON.stringify({
+          imie, kontakt,
+          typ: document.getElementById('kfTyp').value,
+          goscie: gVal.textContent,
+          budzet: bVal.textContent,
+          wiadomosc: document.getElementById('kfMsg').value.trim(),
+          www: document.getElementById('kfWww').value
+        })});
+        const d = await r.json();
+        if (d.ok) {
+          cform.innerHTML = '<div class="c-sukces"><div class="znak">✓</div>' +
+            '<h3>Dziękujemy za zapytanie!</h3>' +
+            '<p>Odezwiemy się w ciągu 24 godzin.<br>Pilna sprawa? Zadzwoń: <a href="tel:+48790880421" style="color:var(--green-dark);font-weight:700;text-decoration:none">790 880 421</a></p></div>';
+        } else {
+          pokazBlad(d.blad || 'Nie udało się wysłać. Napisz na biuro@falp.pl');
+          btn.disabled = false; btn.textContent = 'Wyślij zapytanie';
+        }
+      } catch {
+        pokazBlad('Nie udało się wysłać. Napisz na biuro@falp.pl albo zadzwoń: 790 880 421.');
+        btn.disabled = false; btn.textContent = 'Wyślij zapytanie';
+      }
+    });
+  }

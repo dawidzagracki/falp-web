@@ -71,6 +71,11 @@
       <h2>Istniejące wpisy</h2>
       <div id="wpisy"></div>
     </div>
+
+    <div class="lista">
+      <h2>Zapytania z formularza kontaktowego</h2>
+      <div id="zgloszenia"></div>
+    </div>
   </div>
 </div>
 
@@ -81,7 +86,36 @@ const $ = id => document.getElementById(id);
 function pokazPanel(tak) {
   $('logowanie').style.display = tak ? 'none' : 'block';
   $('panel').style.display = tak ? 'block' : 'none';
-  if (tak) odswiezListe();
+  if (tak) { odswiezListe(); odswiezZgloszenia(); }
+}
+
+async function odswiezZgloszenia() {
+  const r = await fetch('/api/kontakt', {headers: {Authorization: 'Bearer ' + token}});
+  const lista = r.ok ? await r.json() : [];
+  const el = $('zgloszenia');
+  el.innerHTML = lista.length ? '' : '<div style="color:#8a8a88;font-size:14px">Brak zapytań.</div>';
+  for (const z of lista) {
+    const d = document.createElement('div');
+    d.style.cssText = 'padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.6';
+    d.innerHTML =
+      '<div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">' +
+      '<b class="z-imie"></b><span style="color:#8a8a88;font-size:12.5px;white-space:nowrap" class="z-data"></span></div>' +
+      '<div class="z-kontakt" style="color:var(--green-text);font-weight:600"></div>' +
+      '<div class="z-meta" style="color:#8a8a88;font-size:13px"></div>' +
+      '<div class="z-msg" style="margin-top:4px;white-space:pre-wrap"></div>' +
+      '<button class="usun" style="margin-top:8px">Usuń</button>';
+    d.querySelector('.z-imie').textContent = z.imie;
+    d.querySelector('.z-data').textContent = z.data;
+    d.querySelector('.z-kontakt').textContent = z.kontakt;
+    d.querySelector('.z-meta').textContent = [z.typ, z.goscie, z.budzet].filter(Boolean).join(' · ');
+    d.querySelector('.z-msg').textContent = z.wiadomosc || '';
+    d.querySelector('.usun').onclick = async () => {
+      if (!confirm('Usunąć zapytanie od "' + z.imie + '"?')) return;
+      await fetch('/api/kontakt/' + z.id, {method: 'DELETE', headers: {Authorization: 'Bearer ' + token}});
+      odswiezZgloszenia();
+    };
+    el.appendChild(d);
+  }
 }
 
 async function odswiezListe() {

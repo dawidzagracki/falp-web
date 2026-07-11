@@ -427,17 +427,58 @@
         <h2 class="display rv">Twój event<br>zaczyna się tu</h2>
         <span class="underline-green rv"></span>
         <p class="rv" style="color:var(--gray);max-width:440px">Opowiedz nam o swoim pomyśle —
-          resztą zajmiemy się my. Od koncepcji, przez technikę, po realizację.</p>
-        <div class="actions rv" style="margin-top:34px;display:flex;gap:16px;flex-wrap:wrap">
-          <a class="btn btn-green" href="mailto:biuro@falp.pl">Napisz do nas</a>
-        </div>
-      </div>
-      <div>
+          wypełnij formularz, a przygotujemy bezpłatną wycenę. Odpowiadamy w 24&nbsp;h.</p>
         <div class="c-item rv"><div class="lbl">Telefon</div><div class="big"><a href="tel:+48790880421">790 880 421</a></div></div>
         <div class="c-item rv"><div class="lbl">E-mail</div><div class="big"><a href="mailto:biuro@falp.pl">biuro@falp.pl</a></div></div>
         <div class="c-item rv"><div class="lbl">Adres</div><div class="big">ul. Zagórska 73, 42-500 Będzin</div></div>
         <div class="c-item rv"><div class="lbl">Godziny pracy</div><div class="big">Pn–Pt 8:00–16:00</div></div>
       </div>
+
+      <form class="cform rv" id="cform" novalidate>
+        <div class="f-row">
+          <div>
+            <label for="kfImie">Imię i nazwisko</label>
+            <input type="text" id="kfImie" maxlength="80" placeholder="Jan Kowalski" required>
+          </div>
+          <div>
+            <label for="kfKontakt">E-mail lub telefon</label>
+            <input type="text" id="kfKontakt" maxlength="120" placeholder="jan@firma.pl / 600 000 000" required>
+          </div>
+        </div>
+
+        <label for="kfTyp">Rodzaj wydarzenia</label>
+        <select id="kfTyp">
+          <option>Integracja firmowa</option>
+          <option>Gala / bankiet</option>
+          <option>Piknik / event plenerowy</option>
+          <option>Impreza sportowa</option>
+          <option>Targi / konferencja</option>
+          <option>Inne</option>
+        </select>
+
+        <div class="range-row">
+          <label for="kfGoscie">Liczba gości</label>
+          <span class="pill" id="kfGoscieVal">100 osób</span>
+        </div>
+        <input type="range" id="kfGoscie" min="10" max="1000" step="10" value="100" aria-label="Liczba gości">
+
+        <div class="range-row">
+          <label for="kfBudzet">Orientacyjny budżet</label>
+          <span class="pill" id="kfBudzetVal">50 000 zł</span>
+        </div>
+        <input type="range" id="kfBudzet" min="5000" max="200000" step="5000" value="50000" aria-label="Orientacyjny budżet">
+
+        <label for="kfMsg">Wiadomość <span class="opc">(opcjonalnie)</span></label>
+        <textarea id="kfMsg" maxlength="2000" placeholder="Termin, miejsce, charakter wydarzenia…"></textarea>
+
+        <input type="text" id="kfWww" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <label class="zgoda"><input type="checkbox" id="kfZgoda">
+          <span>Wyrażam zgodę na przetwarzanie moich danych w celu odpowiedzi na zapytanie.</span></label>
+
+        <button type="submit" class="btn btn-green">Wyślij zapytanie</button>
+        <div class="f-info" id="cformInfo"></div>
+      </form>
     </div>
   </div>
 </section>

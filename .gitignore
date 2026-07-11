@@ -21,3 +21,6 @@ HANDOFF.md
 
 # Docker
 .docker/
+
+# lokalne zgloszenia z formularza (na serwerze trzymane w wolumenie)
+www/blog/zgloszenia.json
