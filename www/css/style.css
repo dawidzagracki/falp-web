@@ -13,14 +13,14 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   img,svg,video{max-width:100%}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip}
   body{
     font-family:'Montserrat',Verdana,sans-serif;
     background:var(--paper);
     color:var(--ink);
     line-height:1.6;
     -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    overflow-x:clip;max-width:100%;
   }
   ::selection{background:var(--green);color:#fff}
 
@@ -83,7 +83,10 @@
     .nav ul.menu li{width:100%}
     .nav ul.menu a{display:block;padding:14px 24px;font-size:16px}
     .nav ul.menu a:active{background:var(--green-pale)}
+    .nav ul.menu .only-mobile{display:block}
+    .nav ul.menu .only-mobile a{color:var(--green-dark);font-weight:700}
   }
+  .only-mobile{display:none}
 
   /* hashtag — motyw z prezentacji */
   .hash{
@@ -490,11 +493,16 @@
   @media(max-width:600px){
     .wrap{padding:0 18px}
     section{padding:64px 0}
-    .wm{font-size:clamp(150px,42vw,300px);opacity:.7}
+    /* znak wodny nie może wystawać poza ekran (poziomy scroll) */
+    .wm{font-size:clamp(150px,42vw,280px);opacity:.7;right:0;left:auto}
+    .hero .wm{right:0}
+    /* telefon w nagłówku znika na telefonie — jest w menu i sekcji Kontakt */
+    .nav .cta{display:none}
     .hero{padding:104px 0 64px}
-    .hero .actions{gap:12px}
-    .btn{padding:14px 26px;font-size:15px}
-    .hero .actions .btn{flex:1;text-align:center;min-width:140px}
+    /* przyciski hero: pełna szerokość, tekst wyśrodkowany */
+    .hero .actions{gap:12px;flex-direction:column;align-items:stretch}
+    .btn{padding:15px 26px;font-size:15px}
+    .hero .actions .btn{width:100%;text-align:center;display:block}
     .hero-stats{gap:22px 26px;margin-top:40px}
     .hero-stats b{font-size:26px}
     .marquee span{font-size:18px;margin-right:40px}
