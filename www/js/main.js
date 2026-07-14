@@ -1,3 +1,18 @@
+  // menu mobilne (hamburger)
+  const navToggle = document.getElementById('navToggle');
+  const menu = document.getElementById('menu');
+  if (navToggle && menu) {
+    const zamknij = () => { menu.classList.remove('open'); navToggle.setAttribute('aria-expanded', 'false'); };
+    navToggle.addEventListener('click', () => {
+      const otwarte = menu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', otwarte ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', zamknij));
+    document.addEventListener('click', e => {
+      if (menu.classList.contains('open') && !e.target.closest('.nav')) zamknij();
+    });
+  }
+
   // reveal on scroll
   const io = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target) }

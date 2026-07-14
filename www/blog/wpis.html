@@ -25,13 +25,16 @@
 <header id="hdr" class="scrolled" style="position:sticky">
   <div class="wrap nav">
     <a class="logo" href="../"><img class="l-color" style="display:block" src="../assets/brand/falp-logo-kolor.png" alt="FALP event" height="26"></a>
-    <ul class="menu">
+    <ul class="menu" id="menu">
       <li><a href="../#o-nas">O nas</a></li>
       <li><a href="../#mozliwosci">Możliwości</a></li>
       <li><a href="./" style="color:var(--green-dark)">Blog</a></li>
       <li><a href="../#kontakt">Kontakt</a></li>
     </ul>
-    <a class="cta" href="tel:+48790880421">790 880 421</a>
+    <div class="nav-right">
+      <a class="cta" href="tel:+48790880421">790 880 421</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 
@@ -75,6 +78,16 @@ fetch('posts.json', {cache: 'no-cache'}).then(r => r.json()).then(posty => {
   });
   document.head.appendChild(ld);
 });
+</script>
+<script>
+(function(){
+  var t=document.getElementById('navToggle'),m=document.getElementById('menu');
+  if(!t||!m)return;
+  function z(){m.classList.remove('open');t.setAttribute('aria-expanded','false');}
+  t.addEventListener('click',function(){var o=m.classList.toggle('open');t.setAttribute('aria-expanded',o?'true':'false');});
+  m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',z);});
+  document.addEventListener('click',function(e){if(m.classList.contains('open')&&!e.target.closest('.nav'))z();});
+})();
 </script>
 </body>
 </html>
