@@ -370,6 +370,16 @@
   /* diagram ESG */
   .esg-diagram{max-width:700px;margin:70px auto 0}
   .esg-diagram svg{width:100%;height:auto;display:block}
+  /* zamiennik na telefon — Venn z tekstem <10px jest nieczytelny, więc karty zamiast diagramu */
+  .esg-mobile{display:none;flex-direction:column;gap:12px}
+  .esg-mobile-card{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;display:flex;gap:14px;align-items:flex-start;
+  }
+  .esg-mobile-card .ico{width:44px;height:44px;border-radius:12px;flex:none;display:grid;place-items:center}
+  .esg-mobile-card .ico svg{width:22px;height:22px}
+  .esg-mobile-card h4{font-size:16px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+  .esg-mobile-card p{color:var(--gray);font-size:14px;line-height:1.5}
 
   /* Falpik — asystent AI (demo) */
   .ai-fab{
@@ -513,13 +523,16 @@
     .svc{padding:28px 22px}
     .eko-card{padding:28px 22px}
     .esg{gap:10px}
+    /* Venn ESG nieczytelny na wąskim ekranie → karty zamiast diagramu */
+    .esg-diagram{display:none}
+    .esg-mobile{display:flex;margin-top:44px}
     .clients-band{padding:70px 0}
     .client-grid{gap:6px 14px;margin-top:44px}
     .memo-band{padding:64px 0}
     .memo-band .sq{width:14px;height:14px;margin-right:12px}
     .contact-grid{gap:34px}
     .about-side{margin-top:40px}
-    .cform{padding:0}
+    .cform{padding:22px 18px}
     .range-row{flex-wrap:wrap}
     footer{padding:28px 0}
     .foot{justify-content:center;text-align:center}
