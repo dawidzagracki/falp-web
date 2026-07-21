@@ -193,6 +193,53 @@
     [goscie, budzet].forEach(s => s.addEventListener('input', aktualizuj));
     aktualizuj();
 
+    // ── temat zapytania (wydarzenie / wynajem / oba) + sprzęt z wypożyczalni ──
+    const segmenty = document.getElementById('kfTemat');
+    const poleWyd = document.getElementById('poleWydarzenie');
+    const kfSprzet = document.getElementById('kfSprzet');
+    const ksHint = document.getElementById('ksHint');
+    let temat = 'Organizacja wydarzenia';
+    let tematReczny = false; // czy user sam kliknął segment
+
+    const ustawTemat = (t, reczny) => {
+      temat = t;
+      if (reczny) tematReczny = true;
+      segmenty.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+      poleWyd.style.display = (t === 'Wynajem sprzętu') ? 'none' : '';
+      rysujSprzetFormularza();
+    };
+    segmenty.querySelectorAll('button').forEach(b =>
+      b.addEventListener('click', () => ustawTemat(b.dataset.t, true)));
+
+    function rysujSprzetFormularza() {
+      const poz = (typeof koszykPozycje === 'function') ? koszykPozycje() : [];
+      const dotyczySprzetu = temat !== 'Organizacja wydarzenia';
+      kfSprzet.hidden = !poz.length;
+      ksHint.hidden = !(dotyczySprzetu && !poz.length);
+      if (!poz.length) return;
+      document.getElementById('ksIle').textContent = poz.reduce((s, p) => s + p.ilosc, 0);
+      document.getElementById('ksSuma').textContent = pln(koszykSuma()) + ' zł';
+      const lista = document.getElementById('ksLista');
+      lista.innerHTML = '';
+      poz.forEach(p => {
+        const r = document.createElement('div');
+        r.className = 'ks-poz';
+        r.innerHTML = '<span class="n"></span><span class="c"></span><button type="button" aria-label="Usuń">×</button>';
+        r.querySelector('.n').textContent = p.nazwa;
+        r.querySelector('.c').textContent = p.ilosc + ' × ' + pln(p.cena) + ' zł';
+        r.querySelector('button').onclick = () => koszykUsun(p.id);
+        lista.appendChild(r);
+      });
+    }
+    document.addEventListener('koszyk-zmiana', rysujSprzetFormularza);
+    document.addEventListener('sprzet-zaladowany', rysujSprzetFormularza);
+    // wejście z wypożyczalni: koszyk pełny → domyślnie temat „Wynajem sprzętu"
+    if (typeof koszykLicznik === 'function' && koszykLicznik() > 0 && !tematReczny) {
+      ustawTemat('Wynajem sprzętu', false);
+    } else {
+      rysujSprzetFormularza();
+    }
+
     const info = document.getElementById('cformInfo');
     const pokazBlad = t => { info.className = 'f-info blad'; info.textContent = t; };
 
@@ -207,16 +254,22 @@
       const btn = cform.querySelector('button[type=submit]');
       btn.disabled = true; btn.textContent = 'Wysyłanie…';
       try {
+        const samWynajem = temat === 'Wynajem sprzętu';
         const r = await fetch('/api/kontakt', {method: 'POST', body: JSON.stringify({
           imie, kontakt,
-          typ: document.getElementById('kfTyp').value,
-          goscie: gVal.textContent,
+          temat,
+          typ: samWynajem ? '' : document.getElementById('kfTyp').value,
+          goscie: samWynajem ? '' : gVal.textContent,
           budzet: bVal.textContent,
+          sprzet: (typeof koszykPozycje === 'function')
+            ? koszykPozycje().map(p => ({nazwa: p.nazwa, ilosc: p.ilosc, cena: p.cena, jm: p.jm}))
+            : [],
           wiadomosc: document.getElementById('kfMsg').value.trim(),
           www: document.getElementById('kfWww').value
         })});
         const d = await r.json();
         if (d.ok) {
+          if (typeof koszykWyczysc === 'function') koszykWyczysc();
           cform.innerHTML = '<div class="c-sukces"><div class="znak">✓</div>' +
             '<h3>Dziękujemy za zapytanie!</h3>' +
             '<p>Odezwiemy się w ciągu 24 godzin.<br>Pilna sprawa? Zadzwoń: <a href="tel:+48790880421" style="color:var(--green-dark);font-weight:700;text-decoration:none">790 880 421</a></p></div>';

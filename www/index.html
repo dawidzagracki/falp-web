@@ -71,6 +71,7 @@
       <li><a href="#mozliwosci">Możliwości</a></li>
       <li><a href="#eko">EKO</a></li>
       <li><a href="#zaufali">Zaufali nam</a></li>
+      <li><a href="wypozyczalnia/">Wypożyczalnia</a></li>
       <li><a href="blog/">Blog</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
       <li class="only-mobile"><a href="tel:+48790880421">Zadzwoń: 790 880 421</a></li>
@@ -460,6 +461,13 @@
       </div>
 
       <form class="cform rv" id="cform" novalidate>
+        <label>Czego dotyczy zapytanie?</label>
+        <div class="segmenty" id="kfTemat">
+          <button type="button" class="on" data-t="Organizacja wydarzenia">🎪 Wydarzenie</button>
+          <button type="button" data-t="Wynajem sprzętu">📦 Wynajem sprzętu</button>
+          <button type="button" data-t="Wydarzenie + sprzęt">Jedno i drugie</button>
+        </div>
+
         <div class="f-row">
           <div>
             <label for="kfImie">Imię i nazwisko</label>
@@ -471,27 +479,36 @@
           </div>
         </div>
 
-        <label for="kfTyp">Rodzaj wydarzenia</label>
-        <select id="kfTyp">
-          <option>Integracja firmowa</option>
-          <option>Gala / bankiet</option>
-          <option>Piknik / event plenerowy</option>
-          <option>Impreza sportowa</option>
-          <option>Targi / konferencja</option>
-          <option>Inne</option>
-        </select>
+        <div id="poleWydarzenie">
+          <label for="kfTyp">Rodzaj wydarzenia</label>
+          <select id="kfTyp">
+            <option>Integracja firmowa</option>
+            <option>Gala / bankiet</option>
+            <option>Piknik / event plenerowy</option>
+            <option>Impreza sportowa</option>
+            <option>Targi / konferencja</option>
+            <option>Inne</option>
+          </select>
 
-        <div class="range-row">
-          <label for="kfGoscie">Liczba gości</label>
-          <span class="pill" id="kfGoscieVal">100 osób</span>
+          <div class="range-row">
+            <label for="kfGoscie">Liczba gości</label>
+            <span class="pill" id="kfGoscieVal">100 osób</span>
+          </div>
+          <input type="range" id="kfGoscie" min="10" max="1000" step="10" value="100" aria-label="Liczba gości">
         </div>
-        <input type="range" id="kfGoscie" min="10" max="1000" step="10" value="100" aria-label="Liczba gości">
 
         <div class="range-row">
           <label for="kfBudzet">Orientacyjny budżet</label>
           <span class="pill" id="kfBudzetVal">50 000 zł</span>
         </div>
         <input type="range" id="kfBudzet" min="5000" max="200000" step="5000" value="50000" aria-label="Orientacyjny budżet">
+
+        <div class="kf-sprzet" id="kfSprzet" hidden>
+          <div class="ks-head"><b>Sprzęt do wyceny (<span id="ksIle">0</span>)</b><a href="wypozyczalnia/">dodaj więcej →</a></div>
+          <div id="ksLista"></div>
+          <div class="ks-suma"><span>suma orientacyjna · netto/doba</span><b id="ksSuma">0 zł</b></div>
+        </div>
+        <div class="ks-hint" id="ksHint" hidden>Chcesz wynająć sprzęt? <a href="wypozyczalnia/">Wybierz pozycje w wypożyczalni →</a></div>
 
         <label for="kfMsg">Wiadomość <span class="opc">(opcjonalnie)</span></label>
         <textarea id="kfMsg" maxlength="2000" placeholder="Termin, miejsce, charakter wydarzenia…"></textarea>
@@ -536,6 +553,8 @@
 </main>
 
 <script src="js/dane.js"></script>
+<script src="js/sprzet.js"></script>
+<script src="js/koszyk.js"></script>
 <script src="js/main.js"></script>
 
 </body>

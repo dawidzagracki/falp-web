@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel bloga — FALP event</title>
+<title>Panel administracyjny — FALP event</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" type="image/png" href="assets/brand/falp-sygnet-fe.png">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,7 +42,8 @@
 </head>
 <body>
 <div class="box">
-  <h1><img src="assets/brand/falp-sygnet-fe.png" alt="Fe">Panel bloga FALP event</h1>
+  <h1><img src="assets/brand/falp-sygnet-fe.png" alt="Fe">Panel FALP event</h1>
+  <p style="color:#8a8a88;font-size:13.5px;margin-top:6px">Blog · Zapytania z formularza · Wypożyczalnia</p>
 
   <div id="logowanie">
     <label for="haslo">Hasło administratora</label>
@@ -57,6 +58,9 @@
       <button class="wyloguj" id="wyloguj">Wyloguj</button>
     </div>
 
+    <div class="lista" style="margin-top:24px;border-top:none;padding-top:0">
+      <h2>Nowy wpis na blogu</h2>
+    </div>
     <label for="tytul">Tytuł wpisu</label>
     <input id="tytul" maxlength="120" placeholder="np. 5 pomysłów na piknik firmowy">
     <label for="zajawka">Zajawka (opcjonalnie — widoczna na liście wpisów)</label>
@@ -76,6 +80,41 @@
       <h2>Zapytania z formularza kontaktowego</h2>
       <div id="zgloszenia"></div>
     </div>
+
+    <div class="lista">
+      <h2>Wypożyczalnia — sprzęt</h2>
+
+      <div style="background:#F7F7F5;border-radius:16px;padding:18px 20px 22px;margin-bottom:18px">
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:0 14px">
+          <div><label for="spNazwa">Nazwa</label>
+            <input id="spNazwa" maxlength="80" placeholder="np. Ekran LED P3.9"></div>
+          <div><label for="spCena">Cena netto (zł)</label>
+            <input id="spCena" type="number" min="0" step="1" placeholder="250"></div>
+          <div><label for="spKategoria">Kategoria</label>
+            <input id="spKategoria" maxlength="40" list="spKategorie" placeholder="np. Ekrany LED">
+            <datalist id="spKategorie"></datalist></div>
+          <div><label for="spJm">Jednostka</label>
+            <input id="spJm" maxlength="20" list="spJmLista" placeholder="doba">
+            <datalist id="spJmLista"><option>doba</option><option>szt./doba</option><option>m²/doba</option><option>kpl./doba</option><option>mb/doba</option><option>pokaz</option></datalist></div>
+        </div>
+        <label for="spOpis">Opis</label>
+        <input id="spOpis" maxlength="300" placeholder="jedno–dwa zdania o sprzęcie">
+        <label>Zdjęcie <span style="font-weight:400;color:#8a8a88">(JPG/PNG/WebP, max 5 MB — opcjonalne)</span></label>
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <img id="spPodglad" alt="" style="display:none;width:86px;height:60px;object-fit:cover;border-radius:10px;border:1px solid var(--line)">
+          <input id="spFoto" type="file" accept="image/jpeg,image/png,image/webp" style="border:none;padding:6px 0;width:auto;flex:1">
+          <button type="button" class="usun" id="spFotoUsun" style="display:none;margin:0">Usuń zdjęcie</button>
+        </div>
+        <input type="hidden" id="spFotoUrl"><input type="hidden" id="spId">
+        <div style="display:flex;gap:10px;align-items:center">
+          <button id="spZapisz">Dodaj sprzęt</button>
+          <button type="button" class="wyloguj" id="spAnuluj" style="display:none;margin-top:24px">Anuluj edycję</button>
+        </div>
+        <div class="info" id="infoSprzet"></div>
+      </div>
+
+      <div id="sprzetLista"></div>
+    </div>
   </div>
 </div>
 
@@ -86,8 +125,118 @@ const $ = id => document.getElementById(id);
 function pokazPanel(tak) {
   $('logowanie').style.display = tak ? 'none' : 'block';
   $('panel').style.display = tak ? 'block' : 'none';
-  if (tak) { odswiezListe(); odswiezZgloszenia(); }
+  if (tak) { odswiezListe(); odswiezZgloszenia(); odswiezSprzet(); }
 }
+
+// ── wypożyczalnia: sprzęt (CRUD + zdjęcia) ──
+let sprzetKatalog = [];
+
+function sprzetFormularz(p) {  // wypełnij formularz (p=null → tryb dodawania)
+  $('spId').value = p ? p.id : '';
+  $('spNazwa').value = p ? p.nazwa : '';
+  $('spKategoria').value = p ? p.kategoria : '';
+  $('spCena').value = p ? p.cena : '';
+  $('spJm').value = p ? p.jm : '';
+  $('spOpis').value = p ? p.opis : '';
+  $('spFotoUrl').value = (p && p.foto) || '';
+  $('spFoto').value = '';
+  const pod = $('spPodglad');
+  pod.style.display = $('spFotoUrl').value ? 'inline-block' : 'none';
+  pod.src = $('spFotoUrl').value || '';
+  $('spFotoUsun').style.display = $('spFotoUrl').value ? 'inline-block' : 'none';
+  $('spZapisz').textContent = p ? 'Zapisz zmiany' : 'Dodaj sprzęt';
+  $('spAnuluj').style.display = p ? 'inline-block' : 'none';
+  if (p) $('spNazwa').scrollIntoView({behavior: 'smooth', block: 'center'});
+}
+
+async function odswiezSprzet() {
+  sprzetKatalog = await fetch('/api/sprzet', {cache: 'no-cache'}).then(r => r.json()).catch(() => []);
+  const dl = $('spKategorie');
+  dl.innerHTML = '';
+  [...new Set(sprzetKatalog.map(p => p.kategoria))].forEach(k => {
+    const o = document.createElement('option'); o.value = k; dl.appendChild(o);
+  });
+  const el = $('sprzetLista');
+  el.innerHTML = sprzetKatalog.length ? '' : '<div style="color:#8a8a88;font-size:14px">Katalog jest pusty.</div>';
+  for (const p of sprzetKatalog) {
+    const r = document.createElement('div');
+    r.className = 'rzad';
+    r.innerHTML =
+      '<span style="display:flex;gap:12px;align-items:center;min-width:0">' +
+      '<img alt="" style="width:56px;height:40px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:var(--pale);flex:none">' +
+      '<span style="min-width:0"><b class="p-nazwa" style="display:block;font-size:14px"></b>' +
+      '<small class="p-meta" style="color:#8a8a88"></small></span></span>' +
+      '<span style="display:flex;gap:10px;align-items:center;flex:none">' +
+      '<button class="edytuj" style="background:#fff;color:var(--green-text);border:1.5px solid var(--green);padding:6px 16px;margin:0;font-size:13px">Edytuj</button>' +
+      '<button class="usun">Usuń</button></span>';
+    const img = r.querySelector('img');
+    if (p.foto) img.src = p.foto; else img.style.opacity = '0';
+    r.querySelector('.p-nazwa').textContent = p.nazwa;
+    r.querySelector('.p-meta').textContent = p.kategoria + ' · ' + (+p.cena).toLocaleString('pl-PL') + ' zł / ' + p.jm;
+    r.querySelector('.edytuj').onclick = () => sprzetFormularz(p);
+    r.querySelector('.usun').onclick = async () => {
+      if (!confirm('Usunąć "' + p.nazwa + '" z wypożyczalni?')) return;
+      await fetch('/api/sprzet/' + p.id, {method: 'DELETE', headers: {Authorization: 'Bearer ' + token}});
+      odswiezSprzet();
+    };
+    el.appendChild(r);
+  }
+}
+
+$('spFoto').addEventListener('change', async () => {
+  const plik = $('spFoto').files[0];
+  const info = $('infoSprzet');
+  if (!plik) return;
+  if (plik.size > 5 * 1024 * 1024) { info.className = 'info blad'; info.textContent = 'Zdjęcie max 5 MB.'; $('spFoto').value = ''; return; }
+  info.className = 'info ok'; info.textContent = 'Wysyłanie zdjęcia…';
+  const r = await fetch('/api/sprzet-foto', {
+    method: 'POST',
+    headers: {Authorization: 'Bearer ' + token, 'Content-Type': plik.type},
+    body: plik
+  });
+  const d = await r.json();
+  if (d.foto) {
+    $('spFotoUrl').value = d.foto;
+    $('spPodglad').src = d.foto; $('spPodglad').style.display = 'inline-block';
+    $('spFotoUsun').style.display = 'inline-block';
+    info.textContent = 'Zdjęcie wgrane ✓';
+  } else {
+    info.className = 'info blad'; info.textContent = d.blad || 'Nie udało się wgrać zdjęcia';
+  }
+});
+$('spFotoUsun').onclick = () => {
+  $('spFotoUrl').value = ''; $('spFoto').value = '';
+  $('spPodglad').style.display = 'none'; $('spFotoUsun').style.display = 'none';
+};
+$('spAnuluj').onclick = () => sprzetFormularz(null);
+
+$('spZapisz').onclick = async () => {
+  const info = $('infoSprzet');
+  const r = await fetch('/api/sprzet', {
+    method: 'POST',
+    headers: {Authorization: 'Bearer ' + token},
+    body: JSON.stringify({
+      id: $('spId').value,
+      nazwa: $('spNazwa').value,
+      kategoria: $('spKategoria').value,
+      cena: $('spCena').value,
+      jm: $('spJm').value,
+      opis: $('spOpis').value,
+      foto: $('spFotoUrl').value
+    })
+  });
+  const d = await r.json();
+  if (d.ok) {
+    info.className = 'info ok';
+    info.textContent = $('spId').value ? 'Zapisano zmiany ✓' : 'Dodano do wypożyczalni ✓';
+    sprzetFormularz(null);
+    odswiezSprzet();
+  } else {
+    info.className = 'info blad';
+    info.textContent = d.blad || 'Nie udało się zapisać';
+    if (r.status === 401) { sessionStorage.removeItem('falp_token'); pokazPanel(false); }
+  }
+};
 
 async function odswiezZgloszenia() {
   const r = await fetch('/api/kontakt', {headers: {Authorization: 'Bearer ' + token}});
@@ -100,14 +249,28 @@ async function odswiezZgloszenia() {
     d.innerHTML =
       '<div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline">' +
       '<b class="z-imie"></b><span style="color:#8a8a88;font-size:12.5px;white-space:nowrap" class="z-data"></span></div>' +
+      '<span class="z-temat" style="display:none;background:var(--pale);color:var(--green-text);font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 12px;margin:2px 0 4px"></span>' +
       '<div class="z-kontakt" style="color:var(--green-text);font-weight:600"></div>' +
       '<div class="z-meta" style="color:#8a8a88;font-size:13px"></div>' +
+      '<div class="z-sprzet" style="display:none;margin-top:6px;background:#F7F7F5;border-radius:10px;padding:8px 12px;font-size:13px;line-height:1.7"></div>' +
       '<div class="z-msg" style="margin-top:4px;white-space:pre-wrap"></div>' +
       '<button class="usun" style="margin-top:8px">Usuń</button>';
     d.querySelector('.z-imie').textContent = z.imie;
     d.querySelector('.z-data').textContent = z.data;
+    if (z.temat) {
+      const t = d.querySelector('.z-temat');
+      t.style.display = 'inline-block';
+      t.textContent = z.temat;
+    }
     d.querySelector('.z-kontakt').textContent = z.kontakt;
     d.querySelector('.z-meta').textContent = [z.typ, z.goscie, z.budzet].filter(Boolean).join(' · ');
+    if (z.sprzet && z.sprzet.length) {
+      const s = d.querySelector('.z-sprzet');
+      s.style.display = 'block';
+      const suma = z.sprzet.reduce((a, p) => a + p.cena * p.ilosc, 0);
+      s.textContent = 'Sprzęt: ' + z.sprzet.map(p => p.nazwa + ' × ' + p.ilosc).join(', ') +
+        '  ·  ~' + suma.toLocaleString('pl-PL') + ' zł netto/doba';
+    }
     d.querySelector('.z-msg').textContent = z.wiadomosc || '';
     d.querySelector('.usun').onclick = async () => {
       if (!confirm('Usunąć zapytanie od "' + z.imie + '"?')) return;

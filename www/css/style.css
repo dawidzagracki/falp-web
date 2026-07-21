@@ -541,3 +541,44 @@
     .client-grid{grid-template-columns:repeat(2,1fr)}
     .client-grid span{font-size:14px;padding:14px 4px}
   }
+
+  /* ── segment „czego dotyczy zapytanie" ── */
+  .segmenty{display:flex;gap:8px;flex-wrap:wrap}
+  .segmenty button{
+    font-family:inherit;font-size:13.5px;font-weight:600;cursor:pointer;
+    border:1.5px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:999px;padding:10px 18px;transition:.2s;flex:1;white-space:nowrap;
+  }
+  .segmenty button:hover{border-color:var(--green)}
+  .segmenty button.on{background:var(--green);border-color:var(--green);color:#fff}
+  @media(max-width:560px){.segmenty button{flex:1 1 100%}}
+
+  /* ── karta „sprzęt do wyceny" w formularzu ── */
+  .kf-sprzet{
+    margin-top:20px;border:1.5px solid var(--green);border-radius:16px;
+    background:var(--green-pale);padding:16px 18px;
+  }
+  .kf-sprzet .ks-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+  .kf-sprzet .ks-head b{font-size:14.5px}
+  .kf-sprzet .ks-head a{color:var(--green-dark);font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap}
+  .kf-sprzet .ks-poz{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:9px 0;border-bottom:1px solid rgba(118,184,55,.25);font-size:13.5px;
+  }
+  .kf-sprzet .ks-poz:last-of-type{border-bottom:none}
+  .kf-sprzet .ks-poz .n{flex:1;min-width:0;font-weight:600}
+  .kf-sprzet .ks-poz .c{color:var(--gray);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .kf-sprzet .ks-poz button{
+    border:none;background:none;color:#C0392B;cursor:pointer;font-size:17px;line-height:1;padding:2px 4px;
+  }
+  .kf-sprzet .ks-suma{
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+    margin-top:10px;padding-top:10px;border-top:1.5px solid rgba(118,184,55,.35);
+  }
+  .kf-sprzet .ks-suma span{font-size:12px;color:var(--gray)}
+  .kf-sprzet .ks-suma b{color:var(--green-dark);font-size:16.5px}
+  .ks-hint{
+    margin-top:18px;font-size:13.5px;color:var(--gray);
+    background:#F7F7F5;border:1px dashed var(--line);border-radius:12px;padding:12px 16px;
+  }
+  .ks-hint a{color:var(--green-dark);font-weight:600;text-decoration:none}
