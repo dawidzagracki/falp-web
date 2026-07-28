@@ -1,218 +1,555 @@
 [
  {
+  "id": "os-01",
+  "kategoria": "Oświetlenie",
+  "nazwa": "FOCUS SPOT 3Z (ADJ)",
+  "opis": "Ruchoma głowa SPOT LED z kołami gobo i pryzmatem — precyzyjne efekty na scenie.",
+  "cena": 150,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "os-02",
+  "kategoria": "Oświetlenie",
+  "nazwa": "FOCUS SPOT 6Z (ADJ)",
+  "opis": "Mocniejsza głowa SPOT LED z gobo i animacjami do większych realizacji.",
+  "cena": 170,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "os-03",
+  "kategoria": "Oświetlenie",
+  "nazwa": "VIZI BEAM RXONE (ADJ)",
+  "opis": "Wąski, intensywny beam — wyraźne wiązki światła w powietrzu.",
+  "cena": 120,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "os-04",
+  "kategoria": "Oświetlenie",
+  "nazwa": "VIZI HEX WASH 7 (ADJ)",
+  "opis": "Ruchomy wash RGBW+ do zalewania sceny i sali kolorem.",
+  "cena": 150,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "os-05",
+  "kategoria": "Oświetlenie",
+  "nazwa": "VIZI WASH Z37 (ADJ)",
+  "opis": "Duży ruchomy wash z zoomem — realizacje plenerowe i sceniczne.",
+  "cena": 250,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 300
+ },
+ {
+  "id": "os-06",
+  "kategoria": "Oświetlenie",
+  "nazwa": "HYDRO BEAM X2 (ADJ)",
+  "opis": "Wodoodporny beam (IP) o dużej mocy — mocny efekt również na zewnątrz.",
+  "cena": 250,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 300
+ },
+ {
+  "id": "os-07",
+  "kategoria": "Oświetlenie",
+  "nazwa": "SOLAR27Q LED (Prolights)",
+  "opis": "Projektor LED RGBW do oświetlenia architektonicznego i scenicznego.",
+  "cena": 160,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 300
+ },
+ {
+  "id": "os-08",
+  "kategoria": "Oświetlenie",
+  "nazwa": "TRUSSPOD 3BAT (Prolights)",
+  "opis": "Bezprzewodowy bar LED na akumulatorze — montaż bez okablowania.",
+  "cena": 80,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-09",
+  "kategoria": "Oświetlenie",
+  "nazwa": "SMART BAT (Prolights)",
+  "opis": "Bezprzewodowa lampa akumulatorowa, sterowanie DMX i z aplikacji.",
+  "cena": 100,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-10",
+  "kategoria": "Oświetlenie",
+  "nazwa": "MEGA BAR GO 50 RGB RC (ADJ)",
+  "opis": "Akumulatorowy bar LED RGB ze sterowaniem radiowym.",
+  "cena": 70,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-11",
+  "kategoria": "Oświetlenie",
+  "nazwa": "5P HEX (ADJ)",
+  "opis": "Reflektor PAR LED 5×HEX — pełna paleta kolorów, podświetlenia.",
+  "cena": 40,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-12",
+  "kategoria": "Oświetlenie",
+  "nazwa": "DOTZ PAR (ADJ)",
+  "opis": "Kompaktowy PAR LED do washu i akcentów kolorystycznych.",
+  "cena": 40,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-13",
+  "kategoria": "Oświetlenie",
+  "nazwa": "TABLED-CPACK (Prolights)",
+  "opis": "Zestaw estradowych reflektorów LED w wygodnej walizce.",
+  "cena": 80,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-14",
+  "kategoria": "Oświetlenie",
+  "nazwa": "GOBO MOSAICO (Prolights)",
+  "opis": "Projektor gobo dużej mocy — logo i wzory na budynkach i scenach.",
+  "cena": 600,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 300
+ },
+ {
+  "id": "os-15",
+  "kategoria": "Oświetlenie",
+  "nazwa": "ECLIPSE HD Spot prowadzący",
+  "opis": "Naświetlacz prowadzący (followspot) HD — podążanie za osobą na scenie.",
+  "cena": 250,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-16",
+  "kategoria": "Oświetlenie",
+  "nazwa": "BEAM-8/WS",
+  "opis": "Efektowa belka beam z ruchomymi wiązkami światła.",
+  "cena": 100,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "os-17",
+  "kategoria": "Oświetlenie",
+  "nazwa": "ChamSys MagicQ PC Wing Compact",
+  "opis": "Profesjonalna konsola oświetleniowa ChamSys z modułem Wing.",
+  "cena": 350,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "os-18",
+  "kategoria": "Oświetlenie",
+  "nazwa": "MyDMX 3.0 (ADJ)",
+  "opis": "Interfejs DMX do sterowania oświetleniem z laptopa.",
+  "cena": 70,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
   "id": "ng-01",
   "kategoria": "Nagłośnienie",
-  "nazwa": "System line-array 12 kW",
-  "opis": "Kompletny system frontowy z procesorem i okablowaniem — plener do 2000 osób.",
-  "cena": 1800,
+  "nazwa": "System ELEMENTS (HK Audio)",
+  "opis": "System liniowy HK Audio Elements: satelity E835 (8 głośników) + subwoofery LSUB1200A/B.",
+  "cena": 600,
   "jm": "doba",
-  "foto": ""
+  "foto": "",
+  "kaucja": 500
  },
  {
   "id": "ng-02",
   "kategoria": "Nagłośnienie",
-  "nazwa": "Zestaw konferencyjny 2×12\"",
-  "opis": "Dwie kolumny aktywne, mikser, 2 mikrofony bezprzewodowe — sala do 150 osób.",
+  "nazwa": "IMPERIO Avante",
+  "opis": "Kompaktowy zestaw liniowy Avante Imperio — głośniki i subwoofery.",
+  "cena": 350,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 300
+ },
+ {
+  "id": "ng-03",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Mikser L-PAD 8cx (RCF)",
+  "opis": "Kompaktowy mikser analogowy 8-kanałowy.",
+  "cena": 50,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "ng-04",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Mikser Ui16 (Soundcraft)",
+  "opis": "Cyfrowy mikser 16-kanałowy, sterowanie przez Wi-Fi z tabletu.",
+  "cena": 150,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "ng-05",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Mikser 1002/Q802 (Xenyx)",
+  "opis": "Mały mikser analogowy — konferencje i małe nagłośnienia.",
+  "cena": 40,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 100
+ },
+ {
+  "id": "ng-06",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Mikrofon SM58 (Shure)",
+  "opis": "Legendarny mikrofon dynamiczny do wokalu i mowy.",
+  "cena": 50,
+  "jm": "szt./doba",
+  "foto": "",
+  "kaucja": 100
+ },
+ {
+  "id": "ng-07",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Mikrofon nagłowny BLX14E/P31 (Shure)",
+  "opis": "Bezprzewodowy mikrofon nagłowny — swoboda ruchu prelegenta.",
+  "cena": 80,
+  "jm": "szt./doba",
+  "foto": "",
+  "kaucja": 100
+ },
+ {
+  "id": "ng-08",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Konsola DJ Pioneer DDJ-RB",
+  "opis": "Kontroler DJ (rekordbox) — idealny na mniejsze imprezy.",
+  "cena": 80,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 100
+ },
+ {
+  "id": "ng-09",
+  "kategoria": "Nagłośnienie",
+  "nazwa": "Konsola DJ Pioneer DDJ-RZX",
+  "opis": "Topowy kontroler DJ Pioneer z wbudowanymi ekranami.",
+  "cena": 800,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "fx-01",
+  "kategoria": "Efekty specjalne",
+  "nazwa": "Wytwornica mgły ENTOUR HAZE PRO (ADJ)",
+  "opis": "Haze uwidaczniający wiązki światła. Płyn w komplecie.",
+  "cena": 200,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 150
+ },
+ {
+  "id": "fx-02",
+  "kategoria": "Efekty specjalne",
+  "nazwa": "Wytwornica ciężkiego dymu ENTOUR ICE (ADJ)",
+  "opis": "Niski dym (low fog) na suchy lód — efekt „chodzenia w chmurach”.",
+  "cena": 350,
+  "jm": "doba",
+  "foto": "",
+  "kaucja": 200
+ },
+ {
+  "id": "ek-01",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 40\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie (HDMI/zasilacz) i case transportowy.",
+  "cena": 250,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-02",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 47\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 300,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-03",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 50\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 350,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-04",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 55\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 400,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-05",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 60\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
   "cena": 450,
   "jm": "doba",
   "foto": ""
  },
  {
-  "id": "ng-03",
-  "kategoria": "Nagłośnienie",
-  "nazwa": "Mikrofon bezprzewodowy",
-  "opis": "Doręczny lub nagłowny, pasmo cyfrowe, zasięg do 100 m.",
-  "cena": 80,
-  "jm": "szt./doba",
-  "foto": ""
- },
- {
-  "id": "ng-04",
-  "kategoria": "Nagłośnienie",
-  "nazwa": "Monitor sceniczny 15\"",
-  "opis": "Odsłuch aktywny 1000 W dla artystów i prelegentów.",
-  "cena": 120,
-  "jm": "szt./doba",
-  "foto": ""
- },
- {
-  "id": "os-01",
-  "kategoria": "Oświetlenie",
-  "nazwa": "Głowica ruchoma BEAM/SPOT",
-  "opis": "Inteligentne światło efektowe, sterowanie DMX. 100% LED.",
-  "cena": 140,
-  "jm": "szt./doba",
-  "foto": ""
- },
- {
-  "id": "os-02",
-  "kategoria": "Oświetlenie",
-  "nazwa": "Naświetlacz LED wash (para)",
-  "opis": "Oświetlenie architektoniczne sali lub sceny, dowolny kolor RGBW.",
-  "cena": 90,
-  "jm": "kpl./doba",
-  "foto": ""
- },
- {
-  "id": "os-03",
-  "kategoria": "Oświetlenie",
-  "nazwa": "Sterownik + realizator światła",
-  "opis": "Konsola grandMA z obsługą realizatora przez cały event.",
-  "cena": 900,
+  "id": "ek-06",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 65\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 500,
   "jm": "doba",
   "foto": ""
  },
  {
-  "id": "os-04",
-  "kategoria": "Oświetlenie",
-  "nazwa": "Girlandy żarowe 10 m",
-  "opis": "Klimatyczne oświetlenie plenerowe — wesela, pikniki, strefy chill.",
-  "cena": 60,
-  "jm": "szt./doba",
+  "id": "ek-07",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 70\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 600,
+  "jm": "doba",
   "foto": ""
  },
  {
-  "id": "led-01",
+  "id": "ek-08",
   "kategoria": "Ekrany LED",
-  "nazwa": "Ekran LED P3.9 (outdoor)",
-  "opis": "Moduły zewnętrzne, jasność 4500 nit — czytelny w pełnym słońcu.",
+  "nazwa": "Telewizor LED 75\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 850,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-09",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Telewizor LED 85\"",
+  "opis": "Zestaw zawiera stojak, pilot, okablowanie i case transportowy.",
+  "cena": 950,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-10",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Prompter 32\"",
+  "opis": "Teleprompter dla prelegentów, konferencji i nagrań.",
   "cena": 250,
-  "jm": "m²/doba",
-  "foto": ""
- },
- {
-  "id": "led-02",
-  "kategoria": "Ekrany LED",
-  "nazwa": "Ekran LED P2.6 (indoor)",
-  "opis": "Wysoka rozdzielczość do transmisji i prezentacji na salach.",
-  "cena": 290,
-  "jm": "m²/doba",
-  "foto": ""
- },
- {
-  "id": "led-03",
-  "kategoria": "Ekrany LED",
-  "nazwa": "Telewizor 65\" na statywie",
-  "opis": "Szybka multimedia do stoiska lub strefy VIP, z okablowaniem.",
-  "cena": 180,
-  "jm": "szt./doba",
-  "foto": ""
- },
- {
-  "id": "led-04",
-  "kategoria": "Ekrany LED",
-  "nazwa": "Realizacja wizji (kamera + mikser)",
-  "opis": "Obsługa ekranów na żywo: kamera, realizator, przebitki.",
-  "cena": 1400,
   "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "ek-11",
+  "kategoria": "Ekrany LED",
+  "nazwa": "Ekran LED (modułowy)",
+  "opis": "Modułowy ekran LED — wycena od metra kwadratowego, dowolny format.",
+  "cena": 550,
+  "jm": "m²",
   "foto": ""
  },
  {
   "id": "sc-01",
   "kategoria": "Scena i konstrukcje",
-  "nazwa": "Scena 8×6 m z zadaszeniem",
-  "opis": "Certyfikowana scena modułowa z pełnym zadaszeniem i balastami.",
-  "cena": 3500,
+  "nazwa": "Podest sceniczny 1×2 m",
+  "opis": "Regulowana wysokość 0,2–1,2 m. Statywy i adaptery dostępne osobno.",
+  "cena": 100,
   "jm": "doba",
-  "foto": ""
+  "foto": "",
+  "kaucja": 60
  },
  {
   "id": "sc-02",
   "kategoria": "Scena i konstrukcje",
-  "nazwa": "Podest sceniczny 2×1 m",
-  "opis": "Modułowy podest 2×1 m, wysokość 20–100 cm — podium, wybieg, riser.",
-  "cena": 45,
-  "jm": "szt./doba",
-  "foto": ""
+  "nazwa": "Kratownica System Quadro 290",
+  "opis": "Aluminiowa kratownica sceniczna — konstrukcje pod światło i ekrany.",
+  "cena": 60,
+  "jm": "mb/doba",
+  "foto": "",
+  "kaucja": 35
  },
  {
   "id": "sc-03",
   "kategoria": "Scena i konstrukcje",
-  "nazwa": "Kratownica quadro (mb)",
-  "opis": "Konstrukcje pod światło, dźwięk i banery — z montażem.",
-  "cena": 35,
-  "jm": "mb/doba",
+  "nazwa": "Namiot eventowy 3×3 m",
+  "opis": "Namiot eventowy 3×3 m. Przy dłuższym wynajmie wycena indywidualna.",
+  "cena": 300,
+  "jm": "doba",
   "foto": ""
  },
  {
   "id": "sc-04",
   "kategoria": "Scena i konstrukcje",
-  "nazwa": "Brama startowa/reklamowa",
-  "opis": "Konstrukcja łukowa lub kratownicowa na biegi i eventy sportowe.",
-  "cena": 700,
-  "jm": "doba",
-  "foto": ""
- },
- {
-  "id": "ef-01",
-  "kategoria": "Efekty specjalne",
-  "nazwa": "Wytwornica dymu/hazera",
-  "opis": "Delikatna mgła podkreślająca światła — bezpieczna na salach.",
-  "cena": 110,
-  "jm": "szt./doba",
-  "foto": ""
- },
- {
-  "id": "ef-02",
-  "kategoria": "Efekty specjalne",
-  "nazwa": "Wyrzutnia konfetti (4 szt.)",
-  "opis": "Efektowny finał gali — konfetti lub serpentyny, obsługa w cenie.",
-  "cena": 320,
-  "jm": "kpl./doba",
-  "foto": ""
- },
- {
-  "id": "ef-03",
-  "kategoria": "Efekty specjalne",
-  "nazwa": "Ciężki dym (suchy lód)",
-  "opis": "Efekt „chodzenia po chmurach\" — pierwszy taniec, wejścia VIP.",
-  "cena": 550,
-  "jm": "pokaz",
-  "foto": ""
- },
- {
-  "id": "ef-04",
-  "kategoria": "Efekty specjalne",
-  "nazwa": "Fontanny iskier (2 szt.)",
-  "opis": "Zimne ognie sceniczne, bezpieczne wewnątrz — sterowane DMX.",
+  "nazwa": "Namiot eventowy 3×6 m",
+  "opis": "Namiot eventowy 3×6 m. Przy dłuższym wynajmie wycena indywidualna.",
   "cena": 400,
-  "jm": "kpl./doba",
+  "jm": "doba",
   "foto": ""
  },
  {
   "id": "wy-01",
   "kategoria": "Wyposażenie",
-  "nazwa": "Namiot ekspresowy 3×3 m",
-  "opis": "Namiot z obciążeniami i ściankami — stoiska, zaplecze, catering.",
-  "cena": 150,
-  "jm": "szt./doba",
+  "nazwa": "Zestaw bawarski",
+  "opis": "Stół 220×70 cm + 2 ławki 220×25 cm — komplet biesiadny.",
+  "cena": 65,
+  "jm": "doba",
   "foto": ""
  },
  {
   "id": "wy-02",
   "kategoria": "Wyposażenie",
-  "nazwa": "Stół koktajlowy z pokrowcem",
-  "opis": "Wysoki stolik bankietowy, biały lub czarny pokrowiec.",
-  "cena": 35,
-  "jm": "szt./doba",
+  "nazwa": "Stół cateringowy",
+  "opis": "Stół cateringowy, możliwość poszycia w kolorze czarnym.",
+  "cena": 40,
+  "jm": "doba",
   "foto": ""
  },
  {
   "id": "wy-03",
   "kategoria": "Wyposażenie",
-  "nazwa": "Krzesło bankietowe",
-  "opis": "Klasyczne krzesło konferencyjno-bankietowe z pokrowcem.",
-  "cena": 12,
-  "jm": "szt./doba",
+  "nazwa": "Stolik koktajlowy",
+  "opis": "Stolik koktajlowy, poszycie czarne lub białe.",
+  "cena": 40,
+  "jm": "doba",
   "foto": ""
  },
  {
-  "id": "wy-04",
-  "kategoria": "Wyposażenie",
-  "nazwa": "Agregat prądotwórczy 40 kVA",
-  "opis": "Cichy agregat z dystrybucją zasilania i obsługą techniczną.",
-  "cena": 950,
+  "id": "ga-01",
+  "kategoria": "Gastronomia",
+  "nazwa": "Wata cukrowa",
+  "opis": "Stanowisko waty cukrowej. Obsługa, produkty i transport wyceniane indywidualnie.",
+  "cena": 250,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "ga-02",
+  "kategoria": "Gastronomia",
+  "nazwa": "Slushy (napoje mrożone)",
+  "opis": "Maszyna do napojów slushy. Kwota obejmuje wypożyczenie maszyny.",
+  "cena": 500,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "ga-03",
+  "kategoria": "Gastronomia",
+  "nazwa": "Popcorn",
+  "opis": "Stanowisko popcornu. Obsługa i produkty wyceniane indywidualnie.",
+  "cena": 300,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "ga-04",
+  "kategoria": "Gastronomia",
+  "nazwa": "Nachos",
+  "opis": "Stanowisko nachos z sosami. Obsługa i produkty wyceniane indywidualnie.",
+  "cena": 300,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "at-01",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Strefa VR — Oculus Quest",
+  "opis": "Stoisko z 2 symulatorami VR Oculus Quest — gra wolna lub turniej.",
+  "cena": 100,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "at-02",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Strefa PS4 + VR",
+  "opis": "Stanowisko PS4 + VR. Opcja w zestawie z TV, statywem i namiotem.",
+  "cena": 100,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "at-03",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Piłkarzyki",
+  "opis": "Stół do piłkarzyków 140×80×90 cm.",
+  "cena": 450,
   "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "at-04",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Piłkarzyki XXL",
+  "opis": "Gigantyczny stół — gra nawet dla 8 osób równocześnie.",
+  "cena": 1500,
+  "jm": "doba",
+  "foto": ""
+ },
+ {
+  "id": "at-05",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Fotobudka",
+  "opis": "Fotobudka na event — wydruki i gadżety dla gości.",
+  "cena": 700,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "at-06",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Żłobkowo — kącik matki z dzieckiem",
+  "opis": "Strefa opieki: przewijak, podgrzewacze, karmienie piersią, zabawki i akcesoria. Wycena wg liczby dzieci.",
+  "cena": 2500,
+  "jm": "impreza",
+  "foto": ""
+ },
+ {
+  "id": "at-07",
+  "kategoria": "Strefa atrakcji",
+  "nazwa": "Strefa atrakcji dla dzieci (animacje)",
+  "opis": "Stoiska animacyjne z animatorem: malowanie twarzy, gry, bańki i wiele więcej.",
+  "cena": 600,
+  "jm": "stoisko",
   "foto": ""
  }
 ]

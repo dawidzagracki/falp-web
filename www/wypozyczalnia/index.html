@@ -224,7 +224,9 @@
     'Ekrany LED': '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
     'Scena i konstrukcje': '<svg viewBox="0 0 24 24"><path d="M3 21V8l9-5 9 5v13M3 12h18M7.5 9.5v11M16.5 9.5v11M12 10v11"/></svg>',
     'Efekty specjalne': '<svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.6L20 10l-5 3.6L16.8 20 12 16.6 7.2 20 9 13.6 4 10l6.1-1.4z"/></svg>',
-    'Wyposażenie': '<svg viewBox="0 0 24 24"><path d="M4 11a2 2 0 0 1 2 2v2h12v-2a2 2 0 1 1 4 0v6h-2v-2H4v2H2v-6a2 2 0 0 1 2-2zM6 11V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/></svg>'
+    'Wyposażenie': '<svg viewBox="0 0 24 24"><path d="M4 11a2 2 0 0 1 2 2v2h12v-2a2 2 0 1 1 4 0v6h-2v-2H4v2H2v-6a2 2 0 0 1 2-2zM6 11V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/></svg>',
+    'Gastronomia': '<svg viewBox="0 0 24 24"><path d="M6 2v7a3 3 0 0 0 6 0V2M9 2v20M17 2c-1.7 0-3 2-3 5s1.3 4 3 4v11"/></svg>',
+    'Strefa atrakcji': '<svg viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 16.5 7.1 18.2l.9-5.5-4-3.9L9.5 8z"/></svg>'
   };
   const TLA = ['#D5EAB9','#A9D478','#8CC44E'];
   const IKONA_DOMYSLNA = '<svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
@@ -262,6 +264,7 @@
         '<div class="s-ikona' + (s.foto ? ' ma-foto' : '') + '" style="background:' + tlo + '"><span class="kat"></span>' + srodek + '</div>' +
         '<div class="s-tresc"><h3></h3><p></p>' +
         '<div class="s-cena">od ' + cenaPln(s.cena) + ' zł <small>/ ' + s.jm + '</small></div>' +
+        '<div class="s-kaucja" style="margin-top:4px;font-size:.82rem;color:var(--gray)"></div>' +
         '<div class="s-dol"><div class="stepper"><button type="button" aria-label="Mniej">−</button><output>1</output><button type="button" aria-label="Więcej">+</button></div>' +
         '<button type="button" class="s-dodaj">Do zapytania</button></div></div>';
       k.querySelector('.kat').textContent = s.kategoria;
@@ -269,6 +272,9 @@
       if (fotoEl) { fotoEl.src = s.foto; fotoEl.alt = s.nazwa; }
       k.querySelector('h3').textContent = s.nazwa;
       k.querySelector('p').textContent = s.opis;
+      const kaucjaEl = k.querySelector('.s-kaucja');
+      if (s.kaucja) kaucjaEl.textContent = 'Kaucja zwrotna: ' + cenaPln(s.kaucja) + ' zł';
+      else kaucjaEl.remove();
       const out = k.querySelector('output');
       const [minus, plus] = k.querySelectorAll('.stepper button');
       minus.onclick = () => out.value = Math.max(1, +out.value - 1);
